@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traditeo.View", "Traditeo.View\Traditeo.View.csproj", "{F43F9DB6-6713-4821-AEDF-D2BFC042AF9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traditeo.Models", "Traditeo.Models\Traditeo.Models.csproj", "{168C970B-5EA2-412E-9973-6C25E02F87C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Traditeo.DAL", "Traditeo.DAL\Traditeo.DAL.csproj", "{B6296B64-DE1E-4FCE-B5A8-F36AFD7B1D51}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F43F9DB6-6713-4821-AEDF-D2BFC042AF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43F9DB6-6713-4821-AEDF-D2BFC042AF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43F9DB6-6713-4821-AEDF-D2BFC042AF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43F9DB6-6713-4821-AEDF-D2BFC042AF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{168C970B-5EA2-412E-9973-6C25E02F87C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{168C970B-5EA2-412E-9973-6C25E02F87C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{168C970B-5EA2-412E-9973-6C25E02F87C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{168C970B-5EA2-412E-9973-6C25E02F87C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6296B64-DE1E-4FCE-B5A8-F36AFD7B1D51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6296B64-DE1E-4FCE-B5A8-F36AFD7B1D51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6296B64-DE1E-4FCE-B5A8-F36AFD7B1D51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6296B64-DE1E-4FCE-B5A8-F36AFD7B1D51}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
