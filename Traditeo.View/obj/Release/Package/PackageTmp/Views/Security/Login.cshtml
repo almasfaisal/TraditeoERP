@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+
+
+<body class="login_bg">
+    <form action="CheckUser" method="post">
+        <br />
+        <div class="login_main_window">
+            <div class="login_logo"></div>
+            <div class="login_box">
+                <div class="user_login"></div>
+                <div class="inner_login_box">
+                    <table CellPadding="0" CellSpacing="0" class="login_wraptbl">
+                        <tr>
+                            <td class="loginLebel">Uaer Name</td>
+                            <td><input id="UserIDTxt" name="UserIDTxt" type="text" class="loginInput" /></td>
+                        </tr>
+                        <tr>
+                            <td class="loginLebel">Password</td>
+                            <td><input id="PasswordTxt" name="PasswordTxt" type="password" class="loginInput"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><input id="LoginBtn" type="submit" value="" class="login_btn" /></td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

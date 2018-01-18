@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ConnectionString-Web.config Connection String" description="ConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data source=DESKTOP-JE6VGEF;User Id=sa;Password=sa@2016; Initial Catalog=AlShafiLive;Connection Timeout=60;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="E:\\TraditeoERP\\Traditeo\\Traditeo\.View\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ConnectionString']/@connectionString" />
+  </parameter>
+</parameters>

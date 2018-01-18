@@ -1,0 +1,5 @@
+E:\TraditeoERP\Traditeo\Traditeo.Models\bin\Release\Traditeo.Models.dll
+E:\TraditeoERP\Traditeo\Traditeo.Models\bin\Release\Traditeo.Models.pdb
+E:\TraditeoERP\Traditeo\Traditeo.Models\obj\Release\Traditeo.Models.csprojResolveAssemblyReference.cache
+E:\TraditeoERP\Traditeo\Traditeo.Models\obj\Release\Traditeo.Models.dll
+E:\TraditeoERP\Traditeo\Traditeo.Models\obj\Release\Traditeo.Models.pdb

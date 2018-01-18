@@ -19,11 +19,11 @@ namespace Traditeo.Models.Utility
         public string Menu { get; set; }
         public int? ParentID { get; set; }
 
-        public int RootID { get; set; }
+        public byte RootID { get; set; }
         public bool IsActive { get; set; }
         public string TargetURL { get; set; }
-        public Int16 IconTag { get; set; }
-        public Int16 SortOrder { get; set; }
+        public byte IconTag { get; set; }
+        public byte SortOrder { get; set; }
 
         public string BindTree(List<Models.Utility.Menus> menuList)
         {
@@ -34,7 +34,7 @@ namespace Traditeo.Models.Utility
                 List<Models.Utility.Menus> parentList = _menuList.Where(m => m.ParentID == null).ToList<Models.Utility.Menus>();
                 
                 _stringBuilder = new StringBuilder();
-                _stringBuilder.Append("<ul id='mainmenu' class='ul_level1'>");
+                _stringBuilder.Append("<ul id='mainmenu' class='ul_level1 treeview'>");
                 for (int i = 0; i < parentList.Count; i++)
                 {
 
@@ -66,7 +66,7 @@ namespace Traditeo.Models.Utility
                 {
                     _stringBuilder.Append("<ul class='ul_level" + level + "'>");
                     _stringBuilder.Append("<li class='li_level" + level + "' ParentId='" + childList[i].MenuID.ToString() + "'  RootID='" + childList[i].RootID + "'>");
-                    _stringBuilder.Append("<a href=" + childList[i].TargetURL + " ispopup=Flase>" + childList[i].Menu + "</a>");
+                    _stringBuilder.Append("<a href=" + childList[i].TargetURL + ">" + childList[i].Menu + "</a>");
                     _stringBuilder.Append("<div class='icon-Tag" + childList[i].IconTag.ToString() + "' ></div>");
                     if (childList[i].TargetURL != "ExpandMenu(this)" && childList[i].TargetURL.Contains("List") && !childList[i].TargetURL.Contains("600018") && !childList[i].TargetURL.Contains("600017") && !childList[i].TargetURL.Contains("800308") && !childList[i].TargetURL.Contains("600020") && !childList[i].TargetURL.Contains("600408"))
                     {

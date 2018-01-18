@@ -1,0 +1,5 @@
+E:\TraditeoERP\Traditeo\Traditeo.DAO\bin\Debug\Traditeo.DAO.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAO\bin\Debug\Traditeo.DAO.pdb
+E:\TraditeoERP\Traditeo\Traditeo.DAO\obj\Debug\Traditeo.DAO.csprojResolveAssemblyReference.cache
+E:\TraditeoERP\Traditeo\Traditeo.DAO\obj\Debug\Traditeo.DAO.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAO\obj\Debug\Traditeo.DAO.pdb

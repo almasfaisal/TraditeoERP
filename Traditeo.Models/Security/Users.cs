@@ -16,7 +16,7 @@ namespace Traditeo.Models.Security
         public bool IsActive { get; set; }
         public int RoleID { get; set; }
         public string MobileNumber { get; set; }
-        public string Email { get; set; }
+        public string EmailID { get; set; }
         public string DisplayName { get; set; }
         [NotMapped]
         public bool IsValidated { get; set; }

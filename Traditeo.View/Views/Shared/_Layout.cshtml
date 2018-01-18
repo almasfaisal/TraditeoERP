@@ -14,8 +14,14 @@
 
         function CreateMenu()
         {
-            $.get("Home/GetMenuHTML").done(function (responce) {
-                $("#MenuTree").html(responce);
+            var host = $(location).attr('protocol') +"\\\\"+ $(location).attr('host');
+            $.get(host + "/Home/GetMenuHTML").done(function (responce) {
+
+                $("#MenuTree").empty();
+                $("#MenuTree").append(responce);
+
+                //$("#MenuTree").html(responce);
+                GenerateMenuTree();
             });
         }
 
@@ -45,12 +51,25 @@
                 }
             }
         }
-        function LoadPage( v1, v2)
-        {
-            alert(v1);
-            alert(v2);
+        function GenerateMenuTree() {
+            $('ul').each(function () {
+
+                if ($(this).closest('li').hasClass('li_level1')) {
+                    if ($(this).closest('li').find('.ul_level2').is(':visible')) {
+                        $(this).closest('li').find('.ul_level2').hide();
+                       
+                    }
+
+                    if ($(this).closest('li').hasClass('li_level2')) {
+                        if ($(this).closest('li').find('.ul_level3').is(':visible')) {
+                            $(this).closest('li').find('.ul_level3').hide();
+                        } 
+                    }
+                }
+            });
         }
     </script>
+
 </head>
 <body class="bodybg">
     <div class="top_sec">

@@ -11,8 +11,19 @@ namespace Traditeo.Areas.PurchaseManagement.Controllers
     {
         public ActionResult Index()
         {
-              
-            return View(new DAL.PurchaseManagement.Purchases().PurchaseList);
+            return View(new DAL.PurchaseManagement.Purchases().ShowPurchases() );
+        }
+
+        public ActionResult Create()
+        {
+            return View("Purchase");
+        }
+
+        public ActionResult Edit(int id)
+        {
+            ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch");
+
+            return View("Purchase");
         }
     }
 }

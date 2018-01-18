@@ -1,0 +1,96 @@
+﻿@model Traditeo.Models.PurchaseManagement.Purchases
+
+@{
+    ViewBag.Title = "Purchase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.date').datepicker({dateFormat: "mm/dd/yyyy"});
+    });
+</script>*@
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Purchase</legend>
+        @Html.HiddenFor(model => model.PurchaseID)
+
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseNumber)
+            </span>
+            @Html.EditorFor(model => model.PurchaseNumber)
+            @Html.ValidationMessageFor(model => model.PurchaseNumber)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseDate)
+            </span>
+            @Html.EditorFor(model => model.PurchaseDate)
+            @Html.ValidationMessageFor(model => model.PurchaseDate)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.BranchID)
+            </span>
+            @*@Html.DropDownListFor(model => model.BranchID, new SelectList(model.Branches, "BranchID", "Branch") )*@
+            @*@Html.DropDownListFor(model => model.BranchID, Model.Branches, "--Select One--")*@
+            @Html.DropDownListFor(model => model.BranchID, (IEnumerable<SelectListItem>)ViewBag.BranchSelectList)
+            @Html.ValidationMessageFor(model => model.BranchID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.VendorID)
+            </span>
+            @Html.EditorFor(model => model.VendorID)
+            @Html.ValidationMessageFor(model => model.VendorID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PaymentTermID)
+            </span>
+            @Html.EditorFor(model => model.PaymentTermID)
+            @Html.ValidationMessageFor(model => model.PaymentTermID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.DueDate)
+            </span>
+            @Html.EditorFor(model => model.DueDate)
+            @Html.ValidationMessageFor(model => model.DueDate)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.ReferenceNumber)
+            </span>
+            @Html.EditorFor(model => model.ReferenceNumber)
+            @Html.ValidationMessageFor(model => model.ReferenceNumber)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.ReferenceNumber)
+            </span>
+            @Html.EditorFor(model => model.ReferenceNumber)
+            @Html.ValidationMessageFor(model => model.ReferenceNumber)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseAuthorityID)
+            </span>
+            @Html.EditorFor(model => model.PurchaseAuthorityID)
+            @Html.ValidationMessageFor(model => model.PurchaseAuthorityID)
+        </div>
+        <div class="datacontrol Remarks">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.Remarks)
+            </span>
+            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "inputRemark" } })
+            @Html.ValidationMessageFor(model => model.Remarks)
+        </div>
+
+    </fieldset>
+}

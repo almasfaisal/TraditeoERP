@@ -1,22 +1,22 @@
-﻿@model IEnumerable<Traditeo.Models.PurchaseManagement.Purchases>
+﻿@model IEnumerable<Traditeo.ViewModel.PurchaseManagement.Purchases>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Purchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PurchaseNumber)
+            @Html.DisplayNameFor(model => model.Branch)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DocumentNumber)
+            @Html.DisplayNameFor(model => model.PurchaseNumber)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PurchaseDate)
@@ -25,26 +25,22 @@
             @Html.DisplayNameFor(model => model.DueDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VendorID)
+            @Html.DisplayNameFor(model => model.Vendor)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.GrandTotal)
         </th>
-        
-        <th>
-            @Html.DisplayNameFor(model => model.BranchID )
-        </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.PurchaseNumber)
+            @Html.DisplayFor(modelItem => item.Branch)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DocumentNumber)
+            @Html.DisplayFor(modelItem => item.PurchaseNumber)
         </td>
+        
         <td>
             @Html.DisplayFor(modelItem => item.PurchaseDate)
         </td>
@@ -52,19 +48,15 @@
             @Html.DisplayFor(modelItem => item.DueDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.VendorID)
+            @Html.DisplayFor(modelItem => item.Vendor)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.GrandTotal)
         </td>
-        
         <td>
-            @Html.DisplayFor(modelItem => item.Branch.Branch)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "Edit", new {  id=item.UniqueID })
+            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
         </td>
     </tr>
 }

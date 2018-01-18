@@ -1,0 +1,403 @@
+﻿* {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 11px;
+}
+
+body.bodybg {
+    font-family:Verdana,Arial;
+    height: 100%;
+    overflow: hidden;
+    font-size: 10px;
+    margin: 0px;
+}
+
+.top_sec {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #1e7567 0%, #114e43 100%) repeat scroll 0 0;
+    height: 45px;
+    width: 100%;
+    z-index: 11;
+}
+
+.leftpane {
+    bottom: 0px;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 7px;
+    top: 50px;
+    width: 250px;
+    background: none repeat scroll 0 0 #F1F1F1;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.4), 0 0 9px rgba(0, 0, 0, 0.1);
+}
+
+.leftpane .logo_pane {
+    width: 191px;
+    height: 60px;
+    margin:5px auto auto;
+}
+
+.leftpane .leftpane_bar {
+    border-bottom: 1px solid #FFFFFF;
+    border-top: 1px solid #C2C6CB;
+    margin-bottom: 1px;
+}
+
+.leftmainmenu_parent {
+    bottom: 5px;
+    left: 0;
+    overflow: auto;
+    position: absolute;
+    right: 0px;
+    top: 70px;
+}
+
+.centerpane {
+    background-color: #FFFFFF;
+    border: 1px solid #AFAFB6;
+    border-top: 0px;
+    bottom: 0;
+    left: 251px;
+    position: absolute;
+    right: 0px;
+    top: 50px;
+}
+
+/* login start */
+
+.login_bg 
+{
+    width: 100%;
+    background-image: url("../Images/bg.jpg"); 
+    background-repeat: repeat; 
+}
+
+
+.login_btn 
+{
+    background-image: url("../Images/login_btn.png"); 
+    width: 75px;
+    height: 31px;
+    background-repeat:no-repeat;
+}
+
+.login_main_window 
+{ 
+    width: 980px; 
+    height: 597px; 
+    margin-left: auto; 
+    margin-right: auto; 
+    position: relative 
+}
+    
+.login_main_window .login_logo{
+    background-image: url("../Images/Logo.png");
+    background-repeat: no-repeat;
+    clear: both;
+    display: inline;
+    float: left;
+    height: 45px;
+    left: 43%;
+    margin-right: auto;
+    margin-top: 4px;
+    position: absolute;
+    top: 10%;
+    width: 175px;
+}
+
+.login_main_window .login_box 
+{ 
+    background: rgb(255,255,255);
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ3JSIgc3RvcC1jb2xvcj0iI2Y2ZjZmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlZGVkZWQiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+); background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1))); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* IE10+ */ background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=0 ); /* IE6-8 */
+    border:1px solid #D6D6D6;
+    color: #EEEEEE;
+    left: 44%;
+    margin: -160px -166px;
+    padding: 22px 32px 10px;
+    position: absolute;
+    text-align: left;
+    top: 50%;
+    width:auto;
+}
+
+*.login_main_window .inner_login_box { height: auto; margin-left: auto; margin-right: auto;}
+.login_main_window .inner_login_box table tr td { padding-top: 5px; width: 100px;text-align:left; }
+.login_main_window .inner_login_box table tr td label { font-size: 15px; color: #333;white-space:nowrap; }
+
+
+
+.loginLebel {
+    font-size: 15px; 
+    color: #333;
+    white-space:nowrap;
+}
+
+.loginInput {
+    margin-top: 4px;
+    border: 1px solid #AEAEAE;
+    color: #202020;
+    margin-left: 20px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    width:350px;
+}
+
+
+#LoginCtr_RememberMe {
+    margin-left:90px;
+    margin-top: 4px;
+    width: 20px;
+}
+
+
+.ml20{margin-left: 20px;
+}
+
+.login_wraptbl td span {
+    position:absolute;
+}
+.login_wraptbl td div {
+    white-space:nowrap;text-align:right;
+}
+
+/* login end */
+
+/* menu start */
+
+
+
+
+#mainmenu.treeview {
+    margin-left:5px;
+}
+#mainmenu .li_level1 > a {
+    color:#000000;
+}
+#mainmenu .li_level2 > a {
+    color:#2D2D2D;
+}
+#mainmenu .li_level3 > a {
+    color: #565656;
+    margin-left: 0;
+}
+#mainmenu a {
+    margin-left:5px;
+    font-size:14px;
+    color: #000000;
+}
+#mainmenu ul a {
+    margin-left:0px;
+    font-size: 13px;
+}
+#mainmenu ul li a {
+    margin-left:3px;
+}
+#mainmenu.treeview li{
+    position:relative;
+    
+}
+#mainmenu.treeview li.li_level1 {
+   margin-bottom: 7px;
+}
+#mainmenu.treeview ul {
+    background:none;
+}
+li[parentid] ul {
+    position:relative;
+}
+#mainmenu.treeview .hitarea {
+    display:none;
+}
+#mainmenu.treeview li.lastExpandable,#mainmenu.treeview li.lastCollapsable {
+    background:none;
+}
+#mainmenu.treeview .selectedNode {
+    font-weight:normal;
+    color:#841111;
+}
+#mainmenu.treeview a:hover {
+    color: #1c7062;
+}
+#mainmenu.treeview li .ul_level3 > li:hover,#mainmenu.treeview li.li_level2.last:hover{
+    background: #ffffff none repeat scroll 0 0;
+}
+#mainmenu.treeview .submenuactive {
+    background: #1b6e60 !important;
+}
+#mainmenu.treeview .submenuactive a {
+    color: #ffffff;
+}
+.submenuactive .icon-Tag100:before {
+    color: #ffffff;
+}
+#mainmenu.treeview li ul li:hover > .iconplus{
+    display:block;
+}
+#mainmenu li .iconplus {
+    background: #dcdcdc none repeat scroll 0 0;
+    color: #fcfeff;
+    display: none;
+    font-size: 16px;
+    padding: 0 4px 2px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+#mainmenu li .iconplus:hover{
+    background:#186558  none repeat scroll 0 0;
+    cursor:pointer;
+}
+#mainmenu.treeview .submenuactive .iconplus {
+    background: #19675a none repeat scroll 0 0;
+    border-left: 1px solid #0f473d;
+    cursor: pointer;
+    display: block;
+}
+.icon-Tag1{
+    background: url("../Images/admin.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    position: absolute;
+    top:2px;
+    width: 22px !important;
+}
+
+.icon-Tag2{
+    background:url("../Images/master.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:4px;
+    position: absolute;
+    width: 22px !important;
+}
+
+.icon-Tag3{
+    background:url("../Images/item.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+
+.icon-Tag4{
+    background:url("../Images/inventory.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:4px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag5{
+    background:url("../Images/purchase.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:4px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag6{
+    background:url("../Images/sales.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag7{
+    background:url("../Images/finance.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag8{
+    background:url("../Images/banking.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:1px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag9{
+    background:url("../Images/Assetmanagement.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag10{
+    background:url("../Images/Manufacturing.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+
+.icon-Tag11{
+    background:url("../Images/Account_receivables.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+
+}
+.icon-Tag12{
+    background:url("../Images/Account_payables.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag13{
+    background:url("../Images/customerm.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top:3px;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag20{
+    background:url("../Images/report.png") no-repeat scroll transparent !important;
+    font-size: 17px;
+    height: 22px !important;
+    left: 0px;
+    top: 0;
+    position: absolute;
+    width: 22px !important;
+}
+.icon-Tag100:before{
+    content:"\f0da";
+    font-size: 15px;
+    left: 5px;
+    position: absolute;
+    top: 4px;
+    color:#565656;
+}
+.icon-Tag200:before{
+    content:"\f0d7";
+    font-size: 15px;
+    left: 5px;
+    position: absolute;
+    top: 4px;
+    color:#2d2d2d;
+}
+/* menu end */

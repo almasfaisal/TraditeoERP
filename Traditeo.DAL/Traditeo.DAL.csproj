@@ -67,6 +67,10 @@
       <Project>{168c970b-5ea2-412e-9973-6c25e02f87c9}</Project>
       <Name>Traditeo.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Traditeo.ViewModel\Traditeo.ViewModel.csproj">
+      <Project>{bafdd363-e8b6-4a3f-b33a-f58936f7eb8b}</Project>
+      <Name>Traditeo.ViewModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="FinancialAccounting\" />

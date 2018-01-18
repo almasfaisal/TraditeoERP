@@ -57,6 +57,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SlickGridNet, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SlickGrid.Net.0.1.0\lib\net40\SlickGridNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -159,6 +163,7 @@
     <Content Include="Areas\SalesManagement\Views\web.config" />
     <Content Include="Areas\FinancialAccounting\Views\web.config" />
     <Content Include="Areas\PurchaseManagement\Views\Purchase\Index.cshtml" />
+    <Content Include="Areas\PurchaseManagement\Views\Purchase\Purchase.cshtml" />
     <None Include="Properties\PublishProfiles\Traditeo.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -213,6 +218,10 @@
     <ProjectReference Include="..\Traditeo.Models\Traditeo.Models.csproj">
       <Project>{168c970b-5ea2-412e-9973-6c25e02f87c9}</Project>
       <Name>Traditeo.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Traditeo.ViewModel\Traditeo.ViewModel.csproj">
+      <Project>{bafdd363-e8b6-4a3f-b33a-f58936f7eb8b}</Project>
+      <Name>Traditeo.ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

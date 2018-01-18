@@ -1,0 +1,14 @@
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Traditeo.DAL.dll.config
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Traditeo.DAL.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Traditeo.DAL.pdb
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\EntityFramework.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\EntityFramework.SqlServer.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Newtonsoft.Json.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Traditeo.Models.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Traditeo.Models.pdb
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\EntityFramework.xml
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\EntityFramework.SqlServer.xml
+E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Release\Newtonsoft.Json.xml
+E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Release\Traditeo.DAL.csprojResolveAssemblyReference.cache
+E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Release\Traditeo.DAL.dll
+E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Release\Traditeo.DAL.pdb

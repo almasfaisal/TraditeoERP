@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Traditeo ERP</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            CreateMenu();
+        });
+
+        function CreateMenu()
+        {
+            $.get("Home/GetMenuHTML").done(function (responce) {
+                $("#MenuTree").html(responce);
+            });
+        }
+    </script>
+</head>
+<body class="bodybg">
+    <div class="top_sec">
+        @Html.ActionLink("Welcome to Traditeo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    </div>
+    <div class="leftpane">
+        <div class="logo_pane">
+            <img id="Logo" width='191' height='45' src="Images/Logo.png" alt="Logo" />
+        </div>
+        <div class="leftpane_bar"></div>
+        <div class="leftmainmenu_parent">
+            <div id="MenuTree">
+                Hello
+                Master
+            </div>
+        </div>
+    </div>
+
+    <div class="centerpane">
+            @RenderBody()
+    </div>
+    <hr />
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>
