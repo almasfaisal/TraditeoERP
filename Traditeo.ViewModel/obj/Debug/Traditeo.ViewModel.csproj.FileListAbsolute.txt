@@ -2,3 +2,4 @@ D:\Personal\TraditeoERP\Traditeo\Traditeo.ViewModel\bin\Debug\Traditeo.ViewModel
 D:\Personal\TraditeoERP\Traditeo\Traditeo.ViewModel\bin\Debug\Traditeo.ViewModel.pdb
 D:\Personal\TraditeoERP\Traditeo\Traditeo.ViewModel\obj\Debug\Traditeo.ViewModel.dll
 D:\Personal\TraditeoERP\Traditeo\Traditeo.ViewModel\obj\Debug\Traditeo.ViewModel.pdb
+D:\Personal\TraditeoERP\Traditeo\Traditeo.ViewModel\obj\Debug\Traditeo.ViewModel.csprojResolveAssemblyReference.cache

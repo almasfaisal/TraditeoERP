@@ -16,14 +16,17 @@ namespace Traditeo.Areas.PurchaseManagement.Controllers
 
         public ActionResult Create()
         {
-            return View("Purchase");
+            var purchaseDocument = new DAL.PurchaseManagement.Purchases().GetPurchaseInformation(0);
+            ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch", purchaseDocument.BranchID);
+            return View("Purchase", purchaseDocument);
         }
 
         public ActionResult Edit(int id)
         {
-            ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch");
-
-            return View("Purchase");
+            var purchaseDocument = new DAL.PurchaseManagement.Purchases().GetPurchaseInformation(id);
+            ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch", purchaseDocument.BranchID);
+            ViewBag.VendorSelectList = new SelectList(new DAL.BusinessPartner.Vendors().VendorList.ToList<Models.BusinessPartner.Vendors>(), "VendorID", "VendorName", purchaseDocument.VendorID);
+            return View("Purchase", purchaseDocument);
         }
     }
 }

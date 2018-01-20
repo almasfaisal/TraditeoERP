@@ -3,6 +3,31 @@
     font-size: 11px;
 }
 
+input[type=checkbox] {
+    margin:0px;
+}
+input[type=button]:focus {
+    outline: none;
+}
+textarea, input, select {
+    border: 1px solid #555555;
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 11px;
+}
+ul {
+    padding: 0px;
+    margin: 0px;
+}
+
+li {
+    list-style-type: none;
+}
+a {
+    text-decoration: none;
+    color: #000000;
+    outline: none;
+}
+
 body.bodybg {
     font-family:Verdana,Arial;
     height: 100%;
@@ -679,6 +704,23 @@ li[parentid] ul {
 .filetree span.file { background: url(images/file.gif) 0 0 no-repeat; }
 
 /* menu end */
+.fieldset td
+{
+    padding: 3px;
+    white-space: nowrap;
+}
+
+.fieldset select {
+    width: 195px;
+}
+
+.fieldset input[type=text] {
+    width: 195px;
+}
+
+.fieldset input[type=datetime] {
+    width: 195px;
+}
 
 select.inputDdl{
   width: 75px !important;
@@ -746,4 +788,143 @@ input.inputPercentage{
 
 .datacontrol.Remarks {
     width:97%;
+}
+
+div[class*=slickgrid_] {
+    border: 1px solid #E6E6E6;border-top:0px;
+}
+
+.grid-canvas .slick-cell:last-child {
+    border-right:0px;
+}
+
+.slick-headerrow .slick-headerrow-column:last-child {
+    border-right:0px;
+}
+.slick-cell {
+    line-height: 20px;
+}
+
+.icon-remove-sign {
+    color: #A9A9A9;
+    padding-top: 5px;
+    position: absolute;
+    right: 7px;
+    text-align: center;
+    top: 1px;
+    cursor: pointer;
+    font-size: 15px;
+}
+.icon-remove-sign:hover,.icon-plus-sign:hover {
+    color: #990707 !important;
+}
+.icon-plus-sign {
+    font-size: 15px;cursor:pointer;
+}
+.slick-headerrow-column {
+    text-overflow: clip;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height:25px;
+}
+
+
+.NumberTotal{
+    color:#555555;
+    display: block;
+    font-weight:bold;
+    text-align: right;
+    float:right;
+}
+.NumberCell {
+    text-align: right;
+}
+.PriceCell {
+    background:none repeat scroll 0 0 #DDEED9 !important;
+}
+.QuantityCell {
+    background:none repeat scroll 0 0 #9FB3ED !important;
+}
+.TotalCell {
+    background:none repeat scroll 0 0 #f9c1c1 !important;
+}
+.GrandTotalCell {
+    background:none repeat scroll 0 0 #F0F5BD !important;
+}
+.LCYCostCell {
+    background:none repeat scroll 0 0 #AFE3F1 !important;
+}
+.PurchasePriceCell {
+    background:none repeat scroll 0 0 #f1f9f7 !important;
+}
+.SalesPriceCell {
+    background:none repeat scroll 0 0 #efedf9 !important;
+}
+.RetailPriceCell {
+    background:none repeat scroll 0 0 #fefadc !important;
+}
+.icon-external-link {
+    float: left;
+    font-size: 15px;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #000000;
+}
+.slick-cell .icon-external-link {
+    display: block;
+    height: 15px;
+    margin: auto;
+    width: 15px;
+    float:none;
+    margin-top:3px;
+}
+.icon-external-link:hover {
+    color: #990707;
+}
+.slick-viewport select{    
+    height: auto;
+}
+
+.slick-header-column {
+    background:#F2F2F2 none repeat scroll 0 0 !important;
+    border-right: 1px solid #dedcdc !important;
+    height: 22px !important;
+    padding-top: 7px !important;
+}
+.slick-column-name {
+    color:#4f4e4e;
+    font-size: 13px;
+}
+
+.slick_grid_removeicon {
+    text-align:center;
+}
+.removeicon_wrap{
+   text-align:center;margin-top: 4px;
+}
+.removeicon_wrap .icon-remove-sign{
+    position:inherit;
+}
+
+.slick-cell.active {
+    border:1px solid #000000;
+}
+
+
+.slickgrideditcell{    
+    border: 1px ridge #c5c5c5 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    height: 17px !important;
+    line-height: 16px;
+    margin: 2px !important;
+}
+.slickgrideditcell input:focus {
+    background:#eef7ff none repeat scroll 0 0;
+}
+.slick-cell .payicon {
+    background: rgba(0, 0, 0, 0) url("../../images/pay_icon.png") no-repeat scroll 0 0;
+    display: block;
+    height: 19px;
+    margin: auto;
+    width: 30px;
 }

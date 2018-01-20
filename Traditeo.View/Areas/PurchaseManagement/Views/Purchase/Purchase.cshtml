@@ -1,4 +1,4 @@
-﻿@model Traditeo.Models.PurchaseManagement.Purchases
+﻿@model Traditeo.ViewModel.PurchaseManagement.Purchases
 
 @{
     ViewBag.Title = "Purchase";
@@ -12,10 +12,35 @@
     });
 </script>*@
 
+<link href="~/Scripts/SlickGrid/lib/qunit.css" rel="stylesheet" type="text/css" />
+<link href="~/Scripts/SlickGrid/slick.grid.css" rel="stylesheet" type="text/css"/>
+<link href="~/Scripts/SlickGrid/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
+
+<script src="~/Scripts/SlickGrid/lib/qunit.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/SlickGrid/lib/jquery-ui-1.8.16.custom.min.js"></script>
+<script src="~/Scripts/SlickGrid/lib/jquery.event.drag-2.2.js"></script>
+<script src="~/Scripts/SlickGrid/lib/jquery.simulate.js"></script>
+<script src="~/Scripts/SlickGrid/lib/qunit.js"></script>
+<script type="text/javascript">
+		jQuery.noConflict();
+</script>
+<script src="~/Scripts/SlickGrid/slick.core.js"></script>
+<script src="~/Scripts/SlickGrid/slick.dataview.js"></script>
+<script src="~/Scripts/SlickGrid/slick.grid.js"></script>
+<script src="~/Scripts/SlickGrid/slick.editors.js"></script>
+<script src="~/Scripts/PurchaseManagement/Purchase.js"></script>
+
+
+<script type="text/javascript">
+    var branchID = '@Model.BranchID';
+    var transactionItemJson = '@Model.TransactionItemJson';
+</script>
+
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
-    <fieldset>
+    <fieldset class="fieldset">
         <legend>Purchase</legend>
         @Html.HiddenFor(model => model.PurchaseID)
 
@@ -37,16 +62,14 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.BranchID)
             </span>
-            @*@Html.DropDownListFor(model => model.BranchID, new SelectList(model.Branches, "BranchID", "Branch") )*@
-            @*@Html.DropDownListFor(model => model.BranchID, Model.Branches, "--Select One--")*@
-            @Html.DropDownListFor(model => model.BranchID, (IEnumerable<SelectListItem>)ViewBag.BranchSelectList)
+            @Html.DropDownListFor(model => model.BranchID, (IEnumerable<SelectListItem>)ViewBag.BranchSelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.BranchID)
         </div>
         <div class="datacontrol">
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.VendorID)
             </span>
-            @Html.EditorFor(model => model.VendorID)
+            @Html.DropDownListFor(model => model.VendorID, (IEnumerable<SelectListItem>)ViewBag.VendorSelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.VendorID)
         </div>
         <div class="datacontrol">
@@ -91,6 +114,7 @@
             @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "inputRemark" } })
             @Html.ValidationMessageFor(model => model.Remarks)
         </div>
-
+        
     </fieldset>
+    <div id="TransactionGrid" style="width: 99%; height: 300px; margin: 5px;"></div>
 }

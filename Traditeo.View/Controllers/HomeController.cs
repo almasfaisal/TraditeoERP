@@ -20,5 +20,9 @@ namespace Traditeo.Controllers
             _menus = new Models.Utility.Menus();
             return _menus.BindTree(new DAL.Utility.Menus().MenuList.ToList<Models.Utility.Menus>().Where(m => m.IsActive == true).ToList<Models.Utility.Menus>());
         }
+        public JsonResult GetWarehouse()
+        {
+            return Json(new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

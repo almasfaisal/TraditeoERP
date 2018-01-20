@@ -53,6 +53,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationSetup\GeneralSetup\Branches.cs" />
+    <Compile Include="ApplicationSetup\Inventory\Warehouses.cs" />
+    <Compile Include="BusinessPartner\Vendors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PurchaseManagement\Purchases.cs" />
     <Compile Include="Security\Users.cs" />
