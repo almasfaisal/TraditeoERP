@@ -24,5 +24,19 @@ namespace Traditeo.Controllers
         {
             return Json(new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult ItemLookup(int rowID)
+        {
+            return PartialView("../Lookups/Items");
+        }
+        public JsonResult GetItems()
+        {
+            var itemList = new DAL.ItemManagement.Items().ItemList.Take(20).ToList();
+            itemList.ForEach(u => u.id = u.ItemID);
+            return Json(itemList, JsonRequestBehavior.AllowGet);
+
+            //return Json(new DAL.ItemManagement.Items().ItemList.Take(20).ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

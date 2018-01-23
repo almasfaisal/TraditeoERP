@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Traditeo ERP</title>
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/bundles/css")
+    @Styles.Render("~/FontAwesome/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    
     <script>
         $(document).ready(function () {
+            localStorage.setItem("host", $(location).attr('protocol') + "\\\\" + $(location).attr('host'));
             CreateMenu();
         });
 
         function CreateMenu()
         {
-            var host = $(location).attr('protocol') +"\\\\"+ $(location).attr('host');
+            var host = localStorage.getItem("host");
             $.get(host + "/Home/GetMenuHTML").done(function (responce) {
-
                 $("#MenuTree").empty();
                 $("#MenuTree").append(responce);
-
-                //$("#MenuTree").html(responce);
                 GenerateMenuTree();
             });
         }
@@ -82,8 +83,7 @@
         <div class="leftpane_bar"></div>
         <div class="leftmainmenu_parent">
             <div id="MenuTree">
-                Hello
-                Master
+                
             </div>
         </div>
     </div>
@@ -94,6 +94,7 @@
     <hr />
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/jqueryui")
         @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -6,3 +6,4 @@ D:\Personal\TraditeoERP\Traditeo\Traditeo.Models\bin\Debug\Traditeo.Models.dll
 D:\Personal\TraditeoERP\Traditeo\Traditeo.Models\bin\Debug\Traditeo.Models.pdb
 D:\Personal\TraditeoERP\Traditeo\Traditeo.Models\obj\Debug\Traditeo.Models.dll
 D:\Personal\TraditeoERP\Traditeo\Traditeo.Models\obj\Debug\Traditeo.Models.pdb
+D:\Personal\TraditeoERP\Traditeo\Traditeo.Models\obj\Debug\Traditeo.Models.csprojResolveAssemblyReference.cache

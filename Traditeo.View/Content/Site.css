@@ -776,7 +776,7 @@ input.inputPercentage{
     right: 3px;
     top:2px;cursor:pointer;
 }
-.datacontrol .icon-external-link {
+.datacontrol .fa-external-link {
     margin-left: 1px;
 }
 .datacontrol input[type="checkbox"] {
@@ -848,12 +848,10 @@ div[class*=slickgrid_] {
 .TotalCell {
     background:none repeat scroll 0 0 #f9c1c1 !important;
 }
-.GrandTotalCell {
+.NetTotalCell {
     background:none repeat scroll 0 0 #F0F5BD !important;
 }
-.LCYCostCell {
-    background:none repeat scroll 0 0 #AFE3F1 !important;
-}
+
 .PurchasePriceCell {
     background:none repeat scroll 0 0 #f1f9f7 !important;
 }
@@ -863,14 +861,16 @@ div[class*=slickgrid_] {
 .RetailPriceCell {
     background:none repeat scroll 0 0 #fefadc !important;
 }
-.icon-external-link {
+
+.fa .fa-external-link {
     float: left;
     font-size: 15px;
     margin-left: 5px;
     cursor: pointer;
     color: #000000;
 }
-.slick-cell .icon-external-link {
+
+.slick-cell .fa-external-link {
     display: block;
     height: 15px;
     margin: auto;
@@ -878,7 +878,8 @@ div[class*=slickgrid_] {
     float:none;
     margin-top:3px;
 }
-.icon-external-link:hover {
+
+.fa-external-link:hover {
     color: #990707;
 }
 .slick-viewport select{    
@@ -927,4 +928,15 @@ div[class*=slickgrid_] {
     height: 19px;
     margin: auto;
     width: 30px;
+}
+
+
+.floatleft {
+    float: left;
+}
+
+.formtable td
+{
+    padding: 3px;
+    white-space: nowrap;
 }

@@ -26,6 +26,9 @@ namespace Traditeo.Areas.PurchaseManagement.Controllers
             var purchaseDocument = new DAL.PurchaseManagement.Purchases().GetPurchaseInformation(id);
             ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch", purchaseDocument.BranchID);
             ViewBag.VendorSelectList = new SelectList(new DAL.BusinessPartner.Vendors().VendorList.ToList<Models.BusinessPartner.Vendors>(), "VendorID", "VendorName", purchaseDocument.VendorID);
+            ViewBag.PaymentTermSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.PaymentTerms().PaymentTermList.ToList<Models.ApplicationSetup.GeneralSetup.PaymentTerms>(), "PaymentTermID", "PaymentTerm", purchaseDocument.PaymentTermID);
+            ViewBag.PurchaseAuthoritySelectList = new SelectList(new Traditeo.DAL.Security.Users ().UserList.ToList<Models.Security.Users>(), "UserID", "DisplayName", purchaseDocument.PurchaseAuthorityID);
+
             return View("Purchase", purchaseDocument);
         }
     }

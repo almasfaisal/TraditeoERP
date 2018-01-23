@@ -16,21 +16,20 @@
 <link href="~/Scripts/SlickGrid/slick.grid.css" rel="stylesheet" type="text/css"/>
 <link href="~/Scripts/SlickGrid/smoothness/jquery-ui-1.8.16.custom.css" rel="stylesheet" />
 
-<script src="~/Scripts/SlickGrid/lib/qunit.js"></script>
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
 <script src="~/Scripts/SlickGrid/lib/jquery-ui-1.8.16.custom.min.js"></script>
 <script src="~/Scripts/SlickGrid/lib/jquery.event.drag-2.2.js"></script>
 <script src="~/Scripts/SlickGrid/lib/jquery.simulate.js"></script>
 <script src="~/Scripts/SlickGrid/lib/qunit.js"></script>
-<script type="text/javascript">
-		jQuery.noConflict();
-</script>
+<script src="~/Scripts/SlickGrid/plugins/slick.rowselectionmodel.js"></script>
+
 <script src="~/Scripts/SlickGrid/slick.core.js"></script>
 <script src="~/Scripts/SlickGrid/slick.dataview.js"></script>
 <script src="~/Scripts/SlickGrid/slick.grid.js"></script>
 <script src="~/Scripts/SlickGrid/slick.editors.js"></script>
 <script src="~/Scripts/PurchaseManagement/Purchase.js"></script>
 
+@*<script src="~/Scripts/Lookups/Items.js"></script>*@
 
 <script type="text/javascript">
     var branchID = '@Model.BranchID';
@@ -76,7 +75,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PaymentTermID)
             </span>
-            @Html.EditorFor(model => model.PaymentTermID)
+            @Html.DropDownListFor(model => model.VendorID, (IEnumerable<SelectListItem>)ViewBag.PaymentTermSelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.PaymentTermID)
         </div>
         <div class="datacontrol">
@@ -104,7 +103,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseAuthorityID)
             </span>
-            @Html.EditorFor(model => model.PurchaseAuthorityID)
+            @Html.DropDownListFor(model => model.VendorID, (IEnumerable<SelectListItem>)ViewBag.PurchaseAuthoritySelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.PurchaseAuthorityID)
         </div>
         <div class="datacontrol Remarks">
@@ -117,4 +116,5 @@
         
     </fieldset>
     <div id="TransactionGrid" style="width: 99%; height: 300px; margin: 5px;"></div>
+    <div id="LookupDiv" style="display: none"></div>
 }

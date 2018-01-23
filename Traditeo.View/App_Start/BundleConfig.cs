@@ -26,6 +26,19 @@ namespace Traditeo
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/FontAwesome/css").Include(
+                      "~/FontAwesome/css/fontawesome.min.css",
+                      "~/FontAwesome/css/fontawesome-all.min.css",
+                      "~/FontAwesome/css/fa-regular.min.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                      "~/Scripts/jquery-ui-1.12.1.min.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/css").Include(
+                      "~/Content/themes/base/jquery-ui.min.css",
+                      "~/Content/themes/base/jquery-ui.css",
+                      "~/Content/themes/base/theme.css"));
         }
     }
 }
