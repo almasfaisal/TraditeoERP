@@ -17,6 +17,8 @@ classes should alter those!
   cursor: default;
   overflow: hidden;
   height:25px !important;
+   -moz-box-sizing: border-box !important;
+   box-sizing: border-box;
 }
 
 .slick-header-column.ui-state-default {
@@ -34,6 +36,8 @@ classes should alter those!
   border-top: 0px;
   border-bottom: 0px;
   float: left;
+  -moz-box-sizing: border-box !important;
+   box-sizing: border-box !important;
 }
 
 .slick-headerrow-column.ui-state-default {

@@ -17,14 +17,17 @@
     TotalDiscount: 15,
     NetTotal:16,
     Naration: 17,
-    DeleteLink:18
+    TrackingTypeID:18,
+    DeleteLink:19
 }
 
+var itemJson='';
+var ledgerJson='';
 var defaultWarehouseID = 0;
 var defaultWarehouse = '';
 var _warehouseArray;
-var Purchasecolumns = [];
-var Purchasedata = [];
+var gridColumns = [];
+var gridData = [];
 
 var CommaFormatter = function (row, cell, value, columnDef, dataContext) {
     return parseFloat(value, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
@@ -37,7 +40,7 @@ var linkFormatter = function (row, cell, value, columnDef, dataContext) {
     return "<a  href='javascript:' onclick='LoadItemHelp(" + dataContext.id + ");'  controltobindid='" + dataContext.id + "' title='Search Items' class='fa fa-external-link frameworkItemLookup' tabindex='0'></a>";
 };
 
-var purchasegridoptions = {
+var gridOption = {
     editable: true,
     showHeaderRow: true,
     enableCellNavigation: true,
@@ -47,7 +50,7 @@ var purchasegridoptions = {
     rtl: direction
 };
 
-Purchasecolumns = [
+gridColumns = [
        { id: "Sno", name: "#", field: "Sno", sortable: true, width: 2 },
        { id: "Warehouse", name: "Warehouse", field: "Warehouse", width: 100, editor: Slick.Editors.ComboBox, idProperty: 'WarehouseID', cssClass: "inactivecell" },
        { id: "ItemCode", name: "Item Code", field: "ItemCode", sortable: true, width: 100, editor: Slick.Editors.Text },
@@ -73,8 +76,8 @@ var direction = false;
 
 
 function AddNewLine(id) {
-    Purchasedata = [];
-    var d = (Purchasedata[0] = {});
+    gridData = [];
+    var d = (gridData[0] = {});
     d["id"] = id;
     d["Sno"] = id + 1;
     d['WarehouseID'] = defaultWarehouseID;
@@ -94,10 +97,11 @@ function AddNewLine(id) {
     d["TotalDiscount"] = 0;
     d["NetTotal"] = 0;
     d["Naration"] = '';
+    d["TrackingTypeID"] = 0;
 }
 
 function AddUpdateLine(id) {
-    var d = Purchasedata[id] = {};
+    var d = gridData[id] = {};
     d["id"] = id;
     d["Sno"] = id + 1;
     d['WarehouseID'] = defaultWarehouseID;
@@ -117,6 +121,7 @@ function AddUpdateLine(id) {
     d["TotalDiscount"] = 0;
     d["NetTotal"] = 0;
     d["Naration"] = '';
+    d["TrackingTypeID"] = 0;
 }
 
 
@@ -124,12 +129,12 @@ function PopulateData(dataTable) {
     
     for (var i = 0; i < dataTable.length; i++)
     {
-        var d = (Purchasedata[i] = {});
+        var d = (gridData[i] = {});
         d["id"] = i;
         d["Sno"] = i + 1;
         d['WarehouseID'] = dataTable[i].WarehouseID;
         d['Warehouse'] = dataTable[i].Warehouse;
-        d["ItemId"] = dataTable[i].ItemID;
+        d["ItemID"] = dataTable[i].ItemID;
         d["ItemCode"] = dataTable[i].ItemCode;
         d["ItemName"] = dataTable[i].ItemName;
         d["Quantity"] = dataTable[i].Quantity;
@@ -145,6 +150,7 @@ function PopulateData(dataTable) {
         d["TotalDiscount"] = dataTable[i].TotalDiscount;
         d["NetTotal"] = dataTable[i].NetTotal;
         d["Naration"] = dataTable[i].Naration;
+        d["TrackingTypeID"] = dataTable[i].TrackingTypeID;
         AddUpdateLine(i + 1);
     }
 }
@@ -171,116 +177,196 @@ function GetWarehouses() {
             defaultWarehouseID = 0;
             defaultWarehouse = '';
         }
-        Purchasecolumns[Browser.Warehouse].items = _warehouseArray;
+        gridColumns[Browser.Warehouse].items = _warehouseArray;
     });
 }
+
+function AddLineItem() {
+    
+    if (gridDataView.getItems()[gridDataView.getItems().length - 1]['ItemCode'] != null) {
+        var rowId = parseInt(gridDataView.getItems()[gridDataView.getItems().length - 1]['id']) + 1;
+        var lineItem = {
+            "id": rowId, "WarehouseID": defaultWarehouseID, "Warehouse": defaultWarehouse, "ItemCode": null, "ItemName": "", "Quantity": 0, "BonusQuantity": 0, "ItemCost": 0, "ItemDiscountPercentage": 0,
+            "ItemDiscountAmount": 0, "MarginPercentage": 0, "MarginAmount": 0, "DiscountPercentage": 0, "DiscountAmount": 0, "TotalCost": 0, "TotalDiscount": 0, "NetTotal": 0, "Naration": ''
+        };
+        gridDataView.addItem(lineItem);
+        gridDataView.updateItem(lineItem.id, lineItem);
+    }
+}
+
+function GetItems(rowID, warehouseID) {
+    //var _exchangeRate = parseFloat($(GetClientID('ExchangeRateTxt')).val());
+    setTimeout(function () {
+        if (warehouseID == null) {
+            var rowItem = gridDataView.getItemById(rowID)["WarehouseID"];
+            warehouseID = gridDataView.getItemById(rowID)["WarehouseID"];
+        }
+
+        var conditionalField = {};
+        conditionalField.ItemID = gridData[rowID]["ItemID"];
+        conditionalField.ItemCode = gridData[rowID]["ItemCode"];
+        var host = localStorage.getItem("host");
+
+        $.get(host + "/Home/GetItems", JSON.stringify(conditionalField)).done(function (responce) {
+            gridData[rowID]["WarehouseID"] = warehouseID;
+            gridData[rowID]["ItemID"] = responce[0]["ItemID"];
+            gridData[rowID]["ItemCode"] = responce[0]["ItemCode"];
+            gridData[rowID]["ItemName"] = responce[0]["ItemName"];
+            gridData[rowID]["ItemCost"] = responce[0]["ItemCost"];
+            gridData[rowID]["Quantity"] = 0;
+            gridData[rowID]["BonusQuantity"] = 10;
+            gridData[rowID]["SampleQuantity"] = 0;
+            gridData[rowID]["ItemDiscountPercentage"] = 0;
+            gridData[rowID]["ItemDiscountAmount"] = 0;
+            gridData[rowID]["MarginPercentage"] = 0;
+            gridData[rowID]["MarginAmount"] = 0;
+            gridData[rowID]["DiscountPercentage"] = 0;
+            gridData[rowID]["DiscountAmount"] = 0;
+            gridData[rowID]["TotalCost"] = 0;
+            gridData[rowID]["TotalDiscount"] = 0;
+            gridData[rowID]["NetTotal"] = 0;
+            gridData[rowID]["TrackingTypeID"] = responce[0]["TrackingTypeID"];
+            lineItemGrid.invalidateRow(rowID);
+            lineItemGrid.render();
+        });
+            
+        AddLineItem();
+        lineItemGrid.setActiveCell(rowID, 3);
+        //}
+        //catch (exception) {
+        //    $('.pageloaderblock').hide();
+        //    $('.pageloaderTAb').hide();
+        //    showerrormsg('Incorrect or Invalid barcode. Please enter valid barcode');
+        //    lineItemGrid.invalidateRow(rowid);
+        //    gridData[rowid]["ItemCode"] = "";
+        //    gridData[rowid]["IsValid"] = "false";
+        //    lineItemGrid.render();
+        //}
+        //$('.pageloaderblock').hide();
+        //$('.pageloaderTAb').hide();
+    }, 0);
+}
+
 
 function CalculateLineDiscount(rowid) {
-    if (Purchasedata[rowid]["Quantity"] != '' && parseFloat(Purchasedata[rowid]["Quantity"]) != 0 && Purchasedata[rowid]["ItemCost"] != '' && parseFloat(Purchasedata[rowid]["ItemCost"]) != 0) {
-        Purchasedata[rowid]["TotalCost"] = parseFloat(Purchasedata[rowid]["Quantity"]) * parseFloat(Purchasedata[rowid]["ItemCost"].toString().replace(/,/g, ""));
+    if (gridData[rowid]["Quantity"] != '' && parseFloat(gridData[rowid]["Quantity"]) != 0 && gridData[rowid]["ItemCost"] != '' && parseFloat(gridData[rowid]["ItemCost"]) != 0) {
+        gridData[rowid]["TotalCost"] = parseFloat(gridData[rowid]["Quantity"]) * parseFloat(gridData[rowid]["ItemCost"].toString().replace(/,/g, ""));
     }
 
-    if (Purchasedata[rowid]["ItemDiscountPercentage"] > 0) {
-        Purchasedata[rowid]["ItemDiscountAmount"] = (parseFloat(Purchasedata[rowid]["ItemDiscountPercentage"]) * parseFloat(Purchasedata[rowid]["TotalCost"])) / 100;
+    if (gridData[rowid]["ItemDiscountPercentage"] > 0) {
+        gridData[rowid]["ItemDiscountAmount"] = (parseFloat(gridData[rowid]["ItemDiscountPercentage"]) * parseFloat(gridData[rowid]["TotalCost"])) / 100;
     }
     else {
-        Purchasedata[rowid]["ItemDiscountAmount"] = 0;
+        gridData[rowid]["ItemDiscountAmount"] = 0;
     }
 
-    if (Purchasedata[rowid]["MarginPercentage"] > 0) {
-        Purchasedata[rowid]["MarginAmount"] = (parseFloat(Purchasedata[rowid]["MarginPercentage"]) * (parseFloat(Purchasedata[rowid]["TotalCost"]) - parseFloat(Purchasedata[rowid]["ItemDiscountAmount"]))) / 100;
-    }
-    else {
-        Purchasedata[rowid]["MarginAmount"] = 0;
-    }
-
-    if (Purchasedata[rowid]["DiscountPercentage"] > 0) {
-        Purchasedata[rowid]["DiscountAmount"] = (parseFloat(Purchasedata[rowid]["DiscountPercentage"]) * (parseFloat(Purchasedata[rowid]["TotalCost"]) - parseFloat(Purchasedata[rowid]["ItemDiscountAmount"]) - parseFloat(Purchasedata[rowid]["MarginAmount"]))) / 100;
-
+    if (gridData[rowid]["MarginPercentage"] > 0) {
+        gridData[rowid]["MarginAmount"] = (parseFloat(gridData[rowid]["MarginPercentage"]) * (parseFloat(gridData[rowid]["TotalCost"]) - parseFloat(gridData[rowid]["ItemDiscountAmount"]))) / 100;
     }
     else {
-        Purchasedata[rowid]["DiscountAmount"] = 0;
+        gridData[rowid]["MarginAmount"] = 0;
     }
 
-    Purchasedata[rowid]["TotalDiscount"] = parseFloat(Purchasedata[rowid]["ItemDiscountAmount"]) + parseFloat(Purchasedata[rowid]["MarginAmount"]) + parseFloat(Purchasedata[rowid]["DiscountAmount"]);
-    Purchasedata[rowid]["NetTotal"] = parseFloat(Purchasedata[rowid]["TotalCost"]) - parseFloat(Purchasedata[rowid]["TotalDiscount"])
+    if (gridData[rowid]["DiscountPercentage"] > 0) {
+        gridData[rowid]["DiscountAmount"] = (parseFloat(gridData[rowid]["DiscountPercentage"]) * (parseFloat(gridData[rowid]["TotalCost"]) - parseFloat(gridData[rowid]["ItemDiscountAmount"]) - parseFloat(gridData[rowid]["MarginAmount"]))) / 100;
 
-    purchasegrid.invalidateRow(rowid);
-    purchasegrid.render();
+    }
+    else {
+        gridData[rowid]["DiscountAmount"] = 0;
+    }
+
+    gridData[rowid]["TotalDiscount"] = parseFloat(gridData[rowid]["ItemDiscountAmount"]) + parseFloat(gridData[rowid]["MarginAmount"]) + parseFloat(gridData[rowid]["DiscountAmount"]);
+    gridData[rowid]["NetTotal"] = parseFloat(gridData[rowid]["TotalCost"]) - parseFloat(gridData[rowid]["TotalDiscount"])
+
+    lineItemGrid.invalidateRow(rowid);
+    lineItemGrid.render();
 }
 
 
-function BindPurchaseGrid(_columns, _data) {
-    purchasedataView = new Slick.Data.DataView({ inlineFilters: true });
-    purchasegrid = new Slick.Grid("#TransactionGrid", purchasedataView, _columns, purchasegridoptions);
-    purchasegrid.setSelectionModel(new Slick.RowSelectionModel());
-    purchasegrid.render();
+function BindPurchaseGrid() {
+    gridDataView = new Slick.Data.DataView({ inlineFilters: true });
+    lineItemGrid = new Slick.Grid("#TransactionGrid", gridDataView, gridColumns, gridOption);
+    lineItemGrid.setSelectionModel(new Slick.RowSelectionModel());
+    lineItemGrid.render();
     
-    purchasegrid.onCellChange.subscribe(function (e, args) {
+    lineItemGrid.onCellChange.subscribe(function (e, args) {
         CalculateLineDiscount(args.row);
 
-        //CalculateTotals();
+        if (args.cell == Browser.ItemCode) {
+            if ($.trim(gridData[args.row]["ItemCode"]) == '' || gridData[args.row]["ItemCode"] == null) {
+                lineItemGrid.invalidateRow(args.row);
 
-        //if (args.cell == Browser.ItemCode) {
-        //    if ($.trim(Purchasedata[args.row]["ItemCode"]) == '' || Purchasedata[args.row]["ItemCode"] == null) {
-        //        purchasegrid.invalidateRow(args.row);
+                gridData[args.row]["ItemID"] = 0;
+                gridData[args.row]["ItemCode"] = '';
+                gridData[args.row]["ItemName"] = '';
+                gridData[args.row]["ItemCost"] = 0;
+                gridData[args.row]["Quantity"] = 0;
+                gridData[args.row]["SampleQuantity"] = 0;
+                gridData[args.row]["ItemDiscountPercentage"] = 0;
+                gridData[args.row]["ItemDiscountAmount"] = 0;
+                gridData[args.row]["MarginPercentage"] = 0;
+                gridData[args.row]["MarginAmount"] = 0;
+                gridData[args.row]["DiscountPercentage"] = 0;
+                gridData[args.row]["DiscountAmount"] = 0;
+                gridData[args.row]["TotalCost"] = 0;
+                gridData[args.row]["TotalDiscount"] = 0;
+                gridData[args.row]["NetTotal"] = 0;
+                gridData[args.row]["TrackingTypeID"] = 0;
+                lineItemGrid.render();
+            }
+            else
+                GetItems(args.row);
+        }
 
-        //        Purchasedata[args.row]["itemid"] = 0;
-        //        Purchasedata[args.row]["ItemCode"] = '';
-        //        Purchasedata[args.row]["ItemName"] = '';
-        //        Purchasedata[args.row]["UnitId"] = 0;
-        //        Purchasedata[args.row]["UnitName"] = '';
-        //        Purchasedata[args.row]["TrackingTypes"] = '';
-        //        Purchasedata[args.row]["DimensionID"] = 0;
-        //        Purchasedata[args.row]["Cost"] = 0;
-        //        Purchasedata[args.row]["Factor"] = 1;
-
-        //        Purchasedata[args.row]["BonusQuantity"] = 0;
-        //        Purchasedata[args.row]["UpdateSalesPrice"] = 0;
-        //        //Purchasedata[args.row]["SampleQuantity"] = 0;
-        //        Purchasedata[args.row]["SalesPrice"] = 0;
-        //        purchasegrid.render();
-        //    }
-        //    else
-        //        GetItemDetails(args.row);
-        //}
-        //purchasegrid.invalidateRow(args.row);
-        //purchasegrid.render();
     });
 
-    purchasedataView.onRowCountChanged.subscribe(function (e, args) {
-        purchasegrid.updateRowCount();
-        purchasegrid.invalidate();
-        purchasegrid.render();
+    lineItemGrid.onBeforeEditCell.subscribe(function (e, args) {
+        if (args.cell == Browser.Quantity && gridData[args.row].TrackingTypeID == "12") {
+            var itemID = parseInt(gridData[args.row]["ItemID"]);
+            LoadBatchItem(args.row, itemID)
+        }
     });
-    purchasedataView.onRowsChanged.subscribe(function (e, args) {
-        purchasegrid.invalidateRows(args.rows);
-        purchasegrid.invalidate();
-        purchasegrid.render();
+
+    gridDataView.onRowCountChanged.subscribe(function (e, args) {
+        lineItemGrid.updateRowCount();
+        lineItemGrid.invalidate();
+        lineItemGrid.render();
     });
-    purchasedataView.beginUpdate();
-    purchasedataView.setItems(_data);
-    purchasedataView.endUpdate();
+    gridDataView.onRowsChanged.subscribe(function (e, args) {
+        lineItemGrid.invalidateRows(args.rows);
+        lineItemGrid.invalidate();
+        lineItemGrid.render();
+    });
+
+    gridDataView.beginUpdate();
+    gridDataView.setItems(gridData);
+    gridDataView.endUpdate();
 }
 
-function LoadItemHelp(rowID) {
-    var rowItem = purchasedataView.getItemById(rowID);
-    var warehouseID= rowItem['WarehouseID'];
-    if (warehouseID > 0) {
-
+function LoadBatchItem(rowID, itemID) {
+    //var itemLedgerJson = ledgerJson.filter(function (ledger) {
+    //    return ledger.ItemID === itemID;
+    //});
+    
+    if (itemID > 0) {
         $("#LookupDiv").dialog({
             autoOpen: false,
-            width: 900,
+            width: 1000,
             height: 500,
             modal: true,
-            title: "Search Items"
+            title: "Item Batches"
         });
 
+        var parameter = {};
+        parameter.rowID = rowID;
+        parameter.itemID = itemID;
+
         var host = localStorage.getItem("host");
+
         $.ajax({
             type: "POST",
-            url: host + "/Home/ItemLookup",
-            data: '{rowID: "' + rowID + '" }',
+            url: host + "/Home/CreateBatchLookup",
+            data: JSON.stringify(parameter),
             contentType: "application/json; charset=utf-8",
             dataType: "html",
             success: function (response) {
@@ -294,16 +380,53 @@ function LoadItemHelp(rowID) {
                 alert(response.responseText);
             }
         });
+    }
+}
 
-        //ShowItemLookup(warehouseID, rowID);
+function LoadItemHelp(rowID) {
+    var rowItem = gridDataView.getItemById(rowID);
+    var warehouseID = rowItem['WarehouseID'];
+    if (warehouseID > 0) {
+        $("#LookupDiv").dialog({
+            autoOpen: false,
+            width: 900,
+            height: 500,
+            modal: true,
+            title: "Search Items"
+        });
+
+        var parameter = {};
+        parameter.rowID = rowID;
+        parameter.warehouseID = warehouseID;
+
+        var host = localStorage.getItem("host");
+
+        $.ajax({
+            type: "POST",
+            url: host + "/Home/ItemLookup",
+            data: JSON.stringify(parameter),
+            contentType: "application/json; charset=utf-8",
+            dataType: "html",
+            success: function (response) {
+                $('#LookupDiv').html(response);
+                $('#LookupDiv').dialog('open');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
     }
 }
 
 $(document).ready(function () {
     GetWarehouses();
-    var jsonobj = JSON.parse(transactionItemJson.replace(/&quot;/g, '"'));
-    PopulateData(jsonobj);
-    BindPurchaseGrid(Purchasecolumns, Purchasedata);
-    //CalculateTotals();
+    itemJson = JSON.parse(transactionItemJson.replace(/&quot;/g, '"'));
+    ledgerJson = JSON.parse(transactionLedgerJson.replace(/&quot;/g, '"'));
+    
+    PopulateData(itemJson);
+    BindPurchaseGrid(gridColumns, gridData);
 });
 

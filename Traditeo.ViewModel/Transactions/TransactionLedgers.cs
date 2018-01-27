@@ -5,6 +5,7 @@ namespace Traditeo.ViewModel.Transactions
 {
     public class TransactionLedgers
     {
+        public Int64 id { get; set; }
         [Key]
         public Int64 TransactionLedgerID { get; set; }
         public int InventoryTypeID { get; set; }
@@ -26,6 +27,7 @@ namespace Traditeo.ViewModel.Transactions
         public decimal? SalePrice { get; set; }
         public decimal? PurchasePrice { get; set; }
         public DateTime? TransactionDate { get; set; }
+
     }
 }
 

@@ -274,6 +274,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Lookups\CreateBatch.js" />
     <Content Include="Scripts\Lookups\Items.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\PurchaseManagement\Purchase.js" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\SlickGrid\.gitignore" />
     <Content Include="Scripts\SlickGrid\README.md" />
     <Content Include="Views\Lookups\Items.cshtml" />
+    <Content Include="Views\Lookups\CreateBatch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

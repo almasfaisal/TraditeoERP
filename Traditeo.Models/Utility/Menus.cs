@@ -25,6 +25,7 @@ namespace Traditeo.Models.Utility
         public byte IconTag { get; set; }
         public byte SortOrder { get; set; }
 
+
         public string BindTree(List<Models.Utility.Menus> menuList)
         {
             try
@@ -81,7 +82,15 @@ namespace Traditeo.Models.Utility
                 throw;
             }
         }
-
-
     }
+    public enum Document
+    {
+        PurchaseSuggestion= 60001,
+        PurchaseRequests= 60002,
+        QuotationRequest= 60003,
+        PurchaseOrder= 60004,
+        Purchases= 60005,
+        PurchaseReturn= 60006,
+    }
+
 }

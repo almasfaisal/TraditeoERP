@@ -1,6 +1,5 @@
 ﻿
 var lookupData = [];
-var ItemsLookUpdataView;
 
 var ItemBrowser = {
     ItemCode: 0,
@@ -30,36 +29,59 @@ var lookupColumns = [
     { id: "PurchasePrice", name: "Purchase Price", field: "PurchasePrice", width: 100 }
 ];
 
-function BindItemGrid(columns, data) {
-    gridDataView = new Slick.Data.DataView({ inlineFilters: true });
-    itemGrid = new Slick.Grid("#ItemGrid", gridDataView, columns, gridOptions);
+function BindItemGrid() {
+    itemDataView = new Slick.Data.DataView({ inlineFilters: true });
+    itemGrid = new Slick.Grid("#ItemGrid", itemDataView, lookupColumns, gridOptions);
     itemGrid.setSelectionModel(new Slick.RowSelectionModel());
     itemGrid.render();
 
-    gridDataView.onRowCountChanged.subscribe(function (e, args) {
+    itemDataView.onRowCountChanged.subscribe(function (e, args) {
         itemGrid.updateRowCount();
         itemGrid.invalidate();
         itemGrid.render();
     });
-    gridDataView.onRowsChanged.subscribe(function (e, args) {
+    itemDataView.onRowsChanged.subscribe(function (e, args) {
         itemGrid.invalidateRows(args.rows);
         itemGrid.invalidate();
         itemGrid.render();
     });
 
-    gridDataView.beginUpdate();
-    gridDataView.setItems(data);
-    gridDataView.endUpdate();
+    itemGrid.onClick.subscribe(function (e, args) {
+        GetSelectionItems(args);
+    });
+
+    itemDataView.beginUpdate();
+    itemDataView.setItems(lookupData);
+    itemDataView.endUpdate();
 }
 
-//function ShowItemLookup(warehouseID, rowID) {
-//    var host = localStorage.getItem("host");
-//    $.get(host + "/Home/GetItems").done(function (responce) {
-//        lookupData = responce;
-//        alert(lookupData[3].ItemCode);
-//        alert(lookupData[3].ItemName);
-//    });
-//}
+function GetSelectionItems(args) {
+    var rowID = $("#RowIDHdn").val();
+    var warehouseID =$("#WarehouseIDHdn").val();
+    lineItemGrid.invalidateRow(rowID);
+    gridData[rowID]['ItemID'] = itemDataView.getItems()[args.row]['ItemID'];
+    gridData[rowID]['ItemCode'] = itemDataView.getItems()[args.row]['ItemCode'];
+    gridData[rowID]['ItemName'] = itemDataView.getItems()[args.row]['ItemName'];
+    GetItems(rowID,warehouseID);
+    lineItemGrid.render();
+    //lineItemGrid.focus();
+    $('#LookupDiv').dialog('close');
+}
+
+function SearchItems()
+{
+    var conditionalField = {};
+    conditionalField.ItemCode = $("#ItemCodeTxt").val();
+    conditionalField.ItemName = $("#ItemNameTxt").val();
+    conditionalField.ItemAlias = $("#ItemAliasTxt").val();
+
+    var host = localStorage.getItem("host");
+
+    $.get(host + "/Home/GetItems", JSON.stringify(conditionalField)).done(function (responce) {
+        lookupData = responce;
+        BindItemGrid(lookupColumns, lookupData);
+    });
+}
 
 $(document).ready(function () {
     var host = localStorage.getItem("host");

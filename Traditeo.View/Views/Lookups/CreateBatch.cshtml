@@ -1,0 +1,43 @@
+﻿
+<script src="~/Scripts/Lookups/CreateBatch.js"></script>
+<script src="~/Scripts/Lookups/CreateBatch.js"></script>
+
+<script type="text/javascript">
+    var itemLedgerJson = '@ViewBag.ItemLedgerJson';
+</script>
+
+<div>
+    <input type="hidden" id="RowIDHdn" value="@ViewBag.RowID" />
+    <input type="hidden" id="ItemIDHdn" value="@ViewBag.ItemID" />
+
+    <table cellpadding="0" cellspacing="0" width="100%" class='batchgeneratetab'>
+        <thead class='tableHeadBg'>
+            <tr>
+                <th>Batch Number</th>
+                <th>Serail Number</th>
+                <th>Expiry Date</th>
+                <th class="textalignright">Quantity</th>
+                <th class="textalignright">Bonus</th>
+                <th class="textalignright">Purchase Price</th>
+                <th class="textalignright">Sales Price</th>
+                <th class="textalignright">Update Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody class='tableTbodyBg'>
+            <tr>
+                <td><input type="text" id="BatchNumberTxt" style="width:80px"/></td>
+                <td><input type="text" id="SerailNumberTxt" style="width:80px"/></td>
+                <td><input type="text" id="ExpiryDateDtp" /></td>
+                <td><input type="text" id="QuantityTxt" class='inputNumber75'/></td>
+                <td><input type="text" id="BonusQuantityTxt" class='inputNumber75'/></td>
+                <td><input type="text" id="PurchasePriceTxt" class='inputNumber75'/></td>
+                <td><input type="text" id="SalePriceTxt" class='inputNumber75'/></td>
+                <td><input type='checkbox' id='PriceUpdateChk'></td>
+                <td><input type="button" id="AddBatchBtn" value="Add" onclick="AddBatchItems(this)" /></td>
+            </tr> 
+        </tbody> 
+    </table> 
+</div>
+<div id="BatchGrid" style="width: 99%; height: 225px; margin: 5px;"></div>
+<div id="ItemBatchGrid" style="width: 99%; height: 225px; margin: 5px;"></div>

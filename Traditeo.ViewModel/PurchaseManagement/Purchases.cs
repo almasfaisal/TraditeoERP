@@ -59,6 +59,7 @@ namespace Traditeo.ViewModel.PurchaseManagement
         public DateTime ? EditDate { get; set; }
 
         public object TransactionItemJson { get; set; }
+        public object TransactionLedgerJson { get; set; }
         public List<TransactionItems> TransactionItem { get; set; }
         public List<TransactionLedgers> TransactionLedger { get; set; }
     }

@@ -9,6 +9,7 @@ namespace Traditeo.ViewModel.Transactions
 {
     public class TransactionItems
     {
+        public Int64 id { get; set; }
         [Key]
         public Int64 TransactionItemID { get; set; }
         public Int64 PurchaseItemID { get; set; }
@@ -19,6 +20,7 @@ namespace Traditeo.ViewModel.Transactions
         public string WarehouseCode { get; set; }
         public string Warehouse { get; set; }
         public Int64 ItemID { get; set; }
+        public int LineID { get; set; }
         public string ItemCode { get; set; }
         public string ItemName { get; set; }
         public int TrackingTypeID { get; set; }
@@ -41,5 +43,7 @@ namespace Traditeo.ViewModel.Transactions
         public decimal SalesPrice { get; set; }
         public decimal NetTotal { get; set; }
         public string Naration { get; set; }
+        public List<TransactionLedgers> TransactionLedger { get; set; }
+        //public object TransactionLedgerJson { get; set; }
     }
 }

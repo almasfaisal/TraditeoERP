@@ -78,6 +78,7 @@ namespace Traditeo.Models.PurchaseManagement
         public Int64 PurchaseItemID { get; set; }
         public Int64 PurchaseID { get; set; }
         public Int64 ItemID { get; set; }
+        public int LineID { get; set; }
         public int UnitID { get; set; }
         public decimal Factor { get; set; }
         public int CurrencyID { get; set; }

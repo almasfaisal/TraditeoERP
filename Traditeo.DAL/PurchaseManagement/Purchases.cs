@@ -71,6 +71,7 @@ namespace Traditeo.DAL.PurchaseManagement
                 _purchases.TransactionItemJson= JsonConvert.SerializeObject(_purchases.TransactionItem);
                 _reader.NextResult();
                 _purchases.TransactionLedger = ((IObjectContextAdapter)this).ObjectContext.Translate<ViewModel.Transactions.TransactionLedgers>(_reader).ToList();
+                _purchases.TransactionLedgerJson = JsonConvert.SerializeObject(_purchases.TransactionLedger);
             }
             return _purchases;
         }
