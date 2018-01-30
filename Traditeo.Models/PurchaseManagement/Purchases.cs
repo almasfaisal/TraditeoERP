@@ -95,7 +95,7 @@ namespace Traditeo.Models.PurchaseManagement
         public decimal DiscountAmount { get; set; }
         public decimal TotalDiscount { get; set; }
         public decimal PurchasePrice { get; set; }
-        public decimal SalesPrice { get; set; }
+        public decimal SalePrice { get; set; }
         public decimal LandedCost { get; set; }
         public decimal AverageCost { get; set; }
         public decimal CostCorrection { get; set; }

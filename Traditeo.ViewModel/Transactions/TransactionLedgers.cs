@@ -14,11 +14,13 @@ namespace Traditeo.ViewModel.Transactions
         public int BranchID { get; set; }
         public int WarehouseID { get; set; }
         public Int64 ItemID { get; set; }
+        public int? LineID { get; set; }
         public Int64 ItemBatchID { get; set; }
         public string BatchNumber { get; set; }
         public string SerialNumber { get; set; }
         public DateTime ? ManufactureDate{ get; set; }
         public DateTime? ExpiryDate { get; set; }
+        public string DisplayExpiryDate { get { return ExpiryDate.Value.ToString("dd MMM yyyy"); } }
         public int? ItemSerialID { get; set; }
         public int? DimensionItemID { get; set; }
         public decimal Quantity { get; set; }

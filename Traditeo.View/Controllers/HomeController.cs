@@ -30,7 +30,16 @@ namespace Traditeo.Controllers
         }
         public JsonResult GetWarehouse()
         {
-            return Json(new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList, JsonRequestBehavior.AllowGet);
+            try
+            {
+                List<Models.ApplicationSetup.Inventory.Warehouses> warehouseList = null;
+                warehouseList = new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList.ToList();
+                return Json(warehouseList, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json(null, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -39,14 +48,14 @@ namespace Traditeo.Controllers
             ViewBag.RowID = rowID;
             ViewBag.WarehouseID = warehouseID;
             return PartialView("../Lookups/Items");
-            //return PartialView("../Lookups/Items", new { rowID = rowID, warehouseID = warehouseID });
         }
 
         [HttpPost]
-        public ActionResult CreateBatchLookup(int rowID, int itemID)
+        public ActionResult CreateBatchLookup(int rowID, int itemID, int lineID)
         {
             ViewBag.RowID = rowID;
             ViewBag.ItemID = itemID;
+            ViewBag.LineID = lineID;
             return PartialView("../Lookups/CreateBatch");
         }
         
@@ -110,12 +119,21 @@ namespace Traditeo.Controllers
                 {
                     var queryResult = JObject.Parse(Request.QueryString[0]);
 
-                    if (queryResult.Count == 1)
+                    if (queryResult.Count == 2)
                     {
                         if (queryResult["ItemID"] != null)
                             _itemID = Convert.ToInt64(queryResult["ItemID"].ToString());
 
-                        itemBatchList = new DAL.ItemManagement.ItemBatches().ItemBatchList.Where(m => m.ItemID == _itemID).ToList<Models.ItemManagement.ItemBatches>();
+                        Traditeo.Models.Utility.Document _document = (Traditeo.Models.Utility.Document)Enum.Parse(typeof(Traditeo.Models.Utility.Document), queryResult["Document"].ToString());
+
+                        if (_document == Traditeo.Models.Utility.Document.Purchases)
+                        {
+                            itemBatchList = new DAL.ItemManagement.ItemBatches().ItemBatchList.Where(m => m.ItemID == _itemID && m.ExpiryDate> DateTime.Now).ToList<Models.ItemManagement.ItemBatches>();
+                        }
+                        else if (_document == Traditeo.Models.Utility.Document.PurchaseReturn)
+                        {
+                            itemBatchList = new DAL.ItemManagement.ItemBatches().ItemBatchList.Where(m => m.ItemID == _itemID).ToList<Models.ItemManagement.ItemBatches>();
+                        }
                     }
                 }
                 itemBatchList.ForEach(u => u.id = u.ItemBatchID);

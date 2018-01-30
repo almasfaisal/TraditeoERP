@@ -364,6 +364,7 @@
     <Content Include="Scripts\SlickGrid\smoothness\images\ui-icons_888888_256x240.png" />
     <Content Include="Scripts\SlickGrid\smoothness\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Scripts\SlickGrid\smoothness\jquery-ui-1.8.16.custom.css" />
+    <Content Include="Scripts\Utility\Utilities.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

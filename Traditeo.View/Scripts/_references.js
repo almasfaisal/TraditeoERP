@@ -39,3 +39,4 @@
 /// <reference path="slickgrid/slick.grid.js" />
 /// <reference path="slickgrid/slick.groupitemmetadataprovider.js" />
 /// <reference path="slickgrid/slick.remotemodel.js" />
+/// <reference path="utility/utilities.js" />

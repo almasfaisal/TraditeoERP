@@ -19,7 +19,8 @@ namespace Traditeo.Models.ItemManagement
         public string SerialNumber { get; set; }
         public DateTime? ManufactureDate { get; set; }
         public DateTime? ExpiryDate { get; set; }
-        public decimal? SalesPrice { get; set; }
+        public string DisplayExpiryDate { get {return ExpiryDate.Value.ToString ("dd MMM yyyy"); } }
+        public decimal? SalePrice { get; set; }
         public decimal? RetailPrice { get; set; }
         public decimal? PurchasePrice { get; set; }
 

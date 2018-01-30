@@ -864,7 +864,7 @@ div[class*=slickgrid_] {
 .PurchasePriceCell {
     background:none repeat scroll 0 0 #f1f9f7 !important;
 }
-.SalesPriceCell {
+.SalePriceCell {
     background:none repeat scroll 0 0 #efedf9 !important;
 }
 .RetailPriceCell {

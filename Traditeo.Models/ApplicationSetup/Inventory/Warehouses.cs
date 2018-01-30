@@ -12,7 +12,7 @@ namespace Traditeo.Models.ApplicationSetup.Inventory
         public string Warehouse { get; set; }
         public string WarehouseAlias { get; set; }
         public int BranchID { get; set; }
-        public bool CanSales { get; set; }
+        public bool CanSale { get; set; }
         public bool CanPurchase { get; set; }
         public bool CanTransfer { get; set; }
         public string Remarks { get; set; }
