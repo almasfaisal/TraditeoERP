@@ -5,12 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Add New", "Create")
 </p>
-<table class="table">
+
+@Html.Action("GridViewPartial")
+
+@*@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "GridView";
+        settings.CallbackRouteValues = new { Controller = "Purchase", Action = "Index" };
+
+
+        settings.KeyFieldName = "UniqueID";
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+        settings.Columns.Add("Branch");
+        settings.Columns.Add("PurchaseNumber");
+        settings.Columns.Add("PurchaseDate");
+        settings.Columns.Add("DueDate");
+        settings.Columns.Add("VendorCode");
+        settings.Columns.Add("Vendor");
+        settings.Columns.Add("ReferenceNumber");
+    });
+}
+@grid.Bind(Model).GetHtml()*@
+
+
+
+
+@*<div>
+    @{ 
+        var grid = new WebGrid(Model, canPage: true, canSort: true, rowsPerPage: 10);
+        grid.Pager(WebGridPagerModes.Numeric);
+        @grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "PurchaseID" },
+         columns: grid.Columns(
+             grid.Column("Branch"),
+             grid.Column("PurchaseNumber"),
+             grid.Column("PurchaseDate"),
+             grid.Column("DueDate"),
+             grid.Column("Vendor"),
+             grid.Column("GrandTotal"),
+             grid.Column(format: (item) => Html.ActionLink("Edit", "Edit", new { id = item.UniqueID }))
+             ));
+    }
+</div>*@
+
+@*<table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Branch)
@@ -55,10 +109,8 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new {  id=item.UniqueID })
-            @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
         </td>
     </tr>
 }
 
-</table>
+</table>*@

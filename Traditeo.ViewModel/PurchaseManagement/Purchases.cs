@@ -11,25 +11,46 @@ namespace Traditeo.ViewModel.PurchaseManagement
         [Key]
         public Int64 UniqueID { get; set; }
         public Int64 PurchaseID { get; set; }
+
+        [Display (Name= "PurchaseNumber", ResourceType =typeof(ApplicationUtility.Resources) )]
         public string PurchaseNumber { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "DueDate", ResourceType = typeof(ApplicationUtility.Resources))]
         public DateTime DueDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "PurchaseDate", ResourceType = typeof(ApplicationUtility.Resources))]
         public DateTime PurchaseDate { get; set; }
+
+        [Display(Name = "Branch", ResourceType = typeof(ApplicationUtility.Resources))]
         public int BranchID { get; set; }
+
         public string BranchCode { get; set; }
         public string Branch { get; set; }
+
+        [Display(Name = "Vendor", ResourceType = typeof(ApplicationUtility.Resources))]
         public int VendorID { get; set; }
         public string VendorCode { get; set; }
         public string Vendor { get; set; }
+
+        [Display(Name = "PaymentTerm", ResourceType = typeof(ApplicationUtility.Resources))]
         public int? PaymentTermID { get; set; }
+
+        [Display(Name = "PurchaseOrderNumber", ResourceType = typeof(ApplicationUtility.Resources))]
         public int? PurchaseOrderID { get; set; }
         public string PurchaseOrderNumber { get; set; }
         public int? PurchaseSuggestionID { get; set; }
         public string PurchaseSuggestionNumber { get; set; }
         public int? PurchaseRequestID { get; set; }
         public string PurchaseRequestNumber { get; set; }
+
+        [Display(Name = "ReferenceNumber", ResourceType = typeof(ApplicationUtility.Resources))]
         public string ReferenceNumber { get; set; }
         public string VoucherNumber { get; set; }
         public int BusinessPeriodID { get; set; }
+
+        [Display(Name = "PurchaseAuthority", ResourceType = typeof(ApplicationUtility.Resources))]
         public int PurchaseAuthorityID { get; set; }
         public string PurchaseAuthority { get; set; }
         public int CurrencyID { get; set; }

@@ -34,6 +34,7 @@ namespace Traditeo
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                       "~/Scripts/Utility/Utilities.js",
+                      "~/Scripts/jquery.validate.min.js",
                       "~/Scripts/jquery-ui-1.12.1.min.js"));
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(

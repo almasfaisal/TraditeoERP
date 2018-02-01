@@ -22,22 +22,22 @@ var batchGridOptions = {
 };
 
 var batchColumns = [
-    { id: "BatchNumber", name: "Batch Number", field: "BatchNumber", width: 60 },
-    { id: "SerialNumber", name: "Serial Number", field: "SerialNumber", width: 60 },
-    { id: "ExpiryDate", name: "Expiry Date", field: "DisplayExpiryDate", width: 100 },
-    { id: "Quantity", name: "Quantity", field: "Quantity", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float, formatter: CommaFormatter },
-    { id: "BonusQuantity", name: "Bonus Quantity", field: "BonusQuantity", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float, formatter: CommaFormatter },
-    { id: "PurchasePrice", name: "Purchase Price", field: "PurchasePrice", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
-    { id: "SalePrice", name: "Sale Price", field: "SalePrice", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter }
+    { id: "BatchNumber", name: "" + resourceList.BatchNumber + "", field: "BatchNumber", width: 60 },
+    { id: "SerialNumber", name: "" + resourceList.SerialNumber + "", field: "SerialNumber", width: 60 },
+    { id: "ExpiryDate", name: "" + resourceList.ExpiryDate + "", field: "DisplayExpiryDate", width: 100 },
+    { id: "Quantity", name: "" + resourceList.Quantity + "", field: "Quantity", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float, formatter: CommaFormatter },
+    { id: "BonusQuantity", name: "" + resourceList.ExpirBonusQuantityyDate + "", field: "BonusQuantity", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float, formatter: CommaFormatter },
+    { id: "PurchasePrice", name: "" + resourceList.PurchasePrice + "", field: "PurchasePrice", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
+    { id: "SalePrice", name: "" + resourceList.SalePrice + "", field: "SalePrice", width: 70, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter }
 ];
 
 var itemBatchColumns = [
     { id: "Sno", name: "S.No.", field: "Sno", sortable: true, width: 25 },
-    { id: "BatchNumber", name: "Batch Number", field: "BatchNumber", width: 80 },
-    { id: "SerialNumber", name: "Serial Number", field: "SerialNumber", width: 80 },
-    { id: "ExpiryDate", name: "Expiry Date", field: "DisplayExpiryDate", width: 80 },
-    { id: "PurchasePrice", name: "Purchase Price", field: "PurchasePrice", width: 80, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
-    { id: "SalePrice", name: "Sale Price", field: "SalePrice", width: 80, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter }
+    { id: "BatchNumber", name: "" + resourceList.BatchNumber + "", field: "BatchNumber", width: 80 },
+    { id: "SerialNumber", name: "" + resourceList.SerialNumber + "", field: "SerialNumber", width: 80 },
+    { id: "ExpiryDate", name: "" + resourceList.ExpiryDate + "", field: "DisplayExpiryDate", width: 80 },
+    { id: "PurchasePrice", name: "" + resourceList.PurchasePrice + "", field: "PurchasePrice", width: 80, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
+    { id: "SalePrice", name: "" + resourceList.SalePrice + "", field: "SalePrice", width: 80, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter }
 ];
 
 function CalculateTotal() {
@@ -45,7 +45,6 @@ function CalculateTotal() {
     var BonusQuantity = 0;
     var PurchasePrice = 0;
     var SalePrice = 0;
-
     for (var j = 0; j < batchDataView.getItems().length; j++) {
         Quantity += parseFloat(batchDataView.getItems()[j]['Quantity'].toString().replace(/,/g, ""));
         BonusQuantity += parseFloat(batchDataView.getItems()[j]['BonusQuantity'].toString().replace(/,/g, ""));
@@ -120,6 +119,8 @@ function BindItemBatchGrid() {
 
 function AddBatchItems() {
     
+    
+
     var batchItem = {
         id: ledgerJson.length + 1,
         LineID: parseInt($("#LineIDHdn").val()),
@@ -127,10 +128,10 @@ function AddBatchItems() {
         SerialNumber: $('#SerailNumberTxt').val(),
         ExpiryDate: new Date($('#ExpiryDateDtp').val()),
         DisplayExpiryDate: $('#ExpiryDateDtp').val(),
-        Quantity: parseFloat($('#QuantityTxt').val()),
-        BonusQuantity: parseFloat($('#BonusQuantityTxt').val()),
-        PurchasePrice: parseFloat($('#PurchasePriceTxt').val()),
-        SalePrice: parseFloat($('#SalePriceTxt').val()),
+        Quantity: $('#QuantityTxt').val() == "" ? 0 : parseFloat($('#QuantityTxt').val()),
+        BonusQuantity: $('#BonusQuantityTxt').val() == "" ? 0 : parseFloat($('#BonusQuantityTxt').val()),
+        PurchasePrice: $('#PurchasePriceTxt').val() == "" ? 0 : parseFloat($('#PurchasePriceTxt').val()),
+        SalePrice: $('#SalePriceTxt').val() == "" ? 0 : parseFloat($('#SalePriceTxt').val()),
         DimensionItemID: null,
         InventoryTypeID: 6,
         ItemBatchID: null,
@@ -145,6 +146,24 @@ function AddBatchItems() {
         DocumentID: 168,
         BranchID: 0
     };
+
+    debugger;
+    if (batchItem.BatchNumber == '') {
+        MessageBox('Enter Batch Number');
+        $('#BatchNumberTxt').focus();
+        return false;
+    }
+    if (batchItem.SerialNumber == '') {
+        MessageBox('Enter Serail Number');
+        $('#SerailNumberTxt').focus();
+        return false;
+    }
+    if (batchItem.Quantity == 0 && batchItem.BonusQuantity==0 ) {
+        MessageBox('Enter Serail Number');
+        $('#QuantityTxt').focus();
+        return false;
+    }
+
     ledgerJson.push(batchItem);
 
     batchData = ledgerJson.filter(function (ledger) {
@@ -155,6 +174,7 @@ function AddBatchItems() {
 }
 
 $(document).ready(function () {
+    $('#ExpiryDateDtp').datepicker({ dateFormat: applicationDateFormat });
 
     batchData = ledgerJson.filter(function (ledger) {
         return ledger.LineID === parseInt($("#LineIDHdn").val());

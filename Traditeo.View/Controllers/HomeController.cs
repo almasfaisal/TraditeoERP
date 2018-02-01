@@ -1,8 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,6 +43,13 @@ namespace Traditeo.Controllers
             {
                 return Json(null, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public JsonResult GetResources()
+        {
+            ResourceSet resourceSet = ApplicationUtility.Resources.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            var resorce = resourceSet.Cast<DictionaryEntry>().ToDictionary(result => result.Key.ToString(), result => result.Value.ToString());
+            return Json(resorce, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

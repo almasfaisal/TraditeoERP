@@ -1,0 +1,7 @@
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\bin\Debug\ApplicationUtility.dll
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\bin\Debug\ApplicationUtility.pdb
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\obj\Debug\ApplicationUtility.Resources.resources
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\obj\Debug\ApplicationUtility.csproj.GenerateResource.Cache
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\obj\Debug\ApplicationUtility.dll
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\obj\Debug\ApplicationUtility.pdb
+D:\Personal\TraditeoERP\Traditeo\ApplicationUtility\obj\Debug\ApplicationUtility.csprojResolveAssemblyReference.cache

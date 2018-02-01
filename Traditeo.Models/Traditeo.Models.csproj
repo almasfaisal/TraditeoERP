@@ -73,6 +73,12 @@
     <Folder Include="InventoryManagement\" />
     <Folder Include="SalesManagement\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationUtility\ApplicationUtility.csproj">
+      <Project>{70afdf13-7dc5-4f99-a0de-ca7379dbcb44}</Project>
+      <Name>ApplicationUtility</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

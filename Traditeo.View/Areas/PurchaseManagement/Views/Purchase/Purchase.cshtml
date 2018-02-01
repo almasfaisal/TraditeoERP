@@ -43,7 +43,7 @@
     <fieldset class="fieldset">
         <legend>Purchase</legend>
         @Html.HiddenFor(model => model.PurchaseID)
-
+        @*@Html.TextBox("ApplicationDateFormat", ApplicationInstance.Application["ApplicationDateFormat"].ToString())*@
         <div class="datacontrol">
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseNumber)
@@ -55,7 +55,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseDate)
             </span>
-            @Html.EditorFor(model => model.PurchaseDate)
+            @Html.TextBoxFor(model => model.PurchaseDate, new { @Value = Model.PurchaseDate.ToString(ApplicationUtility.Utility.DateFormat)})
             @Html.ValidationMessageFor(model => model.PurchaseDate)
         </div>
         <div class="datacontrol">
@@ -83,7 +83,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.DueDate)
             </span>
-            @Html.EditorFor(model => model.DueDate)
+            @Html.TextBoxFor(model => model.DueDate, new { @Value = Model.PurchaseDate.ToString(ApplicationUtility.Utility.DateFormat) })
             @Html.ValidationMessageFor(model => model.DueDate)
         </div>
         <div class="datacontrol">
@@ -104,7 +104,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseAuthorityID)
             </span>
-            @Html.DropDownListFor(model => model.VendorID, (IEnumerable<SelectListItem>)ViewBag.PurchaseAuthoritySelectList, "--Select--")
+            @Html.DropDownListFor(model => model.PurchaseAuthorityID, (IEnumerable<SelectListItem>)ViewBag.PurchaseAuthoritySelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.PurchaseAuthorityID)
         </div>
         <div class="datacontrol Remarks">

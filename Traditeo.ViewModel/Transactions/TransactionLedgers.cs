@@ -20,7 +20,7 @@ namespace Traditeo.ViewModel.Transactions
         public string SerialNumber { get; set; }
         public DateTime ? ManufactureDate{ get; set; }
         public DateTime? ExpiryDate { get; set; }
-        public string DisplayExpiryDate { get { return ExpiryDate.Value.ToString("dd MMM yyyy"); } }
+        public string DisplayExpiryDate { get { return ExpiryDate.Value.ToString(ApplicationUtility.Utility.DateFormat); } }
         public int? ItemSerialID { get; set; }
         public int? DimensionItemID { get; set; }
         public decimal Quantity { get; set; }

@@ -488,7 +488,11 @@ function LoadItemHelp(rowID) {
     }
 }
 
+
 $(document).ready(function () {
+    $('#PurchaseDate').datepicker({ dateFormat: applicationDateFormat });
+    $('#DueDate').datepicker({ dateFormat: applicationDateFormat });
+
     GetWarehouses();
     itemJson = JSON.parse(transactionItemJson.replace(/&quot;/g, '"'));
     ledgerJson = JSON.parse(transactionLedgerJson.replace(/&quot;/g, '"'));

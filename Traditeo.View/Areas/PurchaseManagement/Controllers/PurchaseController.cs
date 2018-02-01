@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Web.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,13 @@ namespace Traditeo.Areas.PurchaseManagement.Controllers
     {
         public ActionResult Index()
         {
-            return View(new DAL.PurchaseManagement.Purchases().ShowPurchases() );
+            return View(new DAL.PurchaseManagement.Purchases().ShowPurchases());
+        }
+
+        [ValidateInput(false)]
+        public ActionResult GridViewPartial()
+        {
+            return PartialView("_GridViewPartial", new DAL.PurchaseManagement.Purchases().ShowPurchases());
         }
 
         public ActionResult Create()
@@ -27,7 +34,7 @@ namespace Traditeo.Areas.PurchaseManagement.Controllers
             ViewBag.BranchSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.Branches().BranchList.ToList<Models.ApplicationSetup.GeneralSetup.Branches>(), "BranchID", "Branch", purchaseDocument.BranchID);
             ViewBag.VendorSelectList = new SelectList(new DAL.BusinessPartner.Vendors().VendorList.ToList<Models.BusinessPartner.Vendors>(), "VendorID", "VendorName", purchaseDocument.VendorID);
             ViewBag.PaymentTermSelectList = new SelectList(new DAL.ApplicationSetup.GeneralSetup.PaymentTerms().PaymentTermList.ToList<Models.ApplicationSetup.GeneralSetup.PaymentTerms>(), "PaymentTermID", "PaymentTerm", purchaseDocument.PaymentTermID);
-            ViewBag.PurchaseAuthoritySelectList = new SelectList(new Traditeo.DAL.Security.Users ().UserList.ToList<Models.Security.Users>(), "UserID", "DisplayName", purchaseDocument.PurchaseAuthorityID);
+            ViewBag.PurchaseAuthoritySelectList = new SelectList(new Traditeo.DAL.Security.Users().UserList.ToList<Models.Security.Users>(), "UserID", "DisplayName", purchaseDocument.PurchaseAuthorityID);
 
             return View("Purchase", purchaseDocument);
         }
