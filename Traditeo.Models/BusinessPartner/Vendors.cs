@@ -13,6 +13,7 @@ namespace Traditeo.Models.BusinessPartner
         public int VendorID { get; set; }
         public string VendorCode { get; set; }
         public string VendorName { get; set; }
+        public string VendorDescription { get { return string.Concat(string.Concat(VendorCode, "-"), VendorName); } }
         public string VendorAlias { get; set; }
         public int VendorCategoryID { get; set; }
         public int PaymentTermID { get; set; }

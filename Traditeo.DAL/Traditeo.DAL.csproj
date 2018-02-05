@@ -55,6 +55,7 @@
     <Compile Include="ApplicationSetup\FinancialAccounting\AccountTypes.cs" />
     <Compile Include="ApplicationSetup\FinancialAccounting\Segmentations.cs" />
     <Compile Include="ApplicationSetup\FinancialAccounting\Segments.cs" />
+    <Compile Include="ApplicationSetup\GeneralSetup\AdditionalCharges.cs" />
     <Compile Include="ApplicationSetup\GeneralSetup\Branches.cs" />
     <Compile Include="ApplicationSetup\GeneralSetup\BusinessPeriods.cs" />
     <Compile Include="ApplicationSetup\GeneralSetup\Currencies.cs" />

@@ -269,7 +269,6 @@
     <Content Include="FontAwesome\webfonts\fa-solid-900.ttf" />
     <Content Include="FontAwesome\webfonts\fa-solid-900.woff" />
     <Content Include="FontAwesome\webfonts\fa-solid-900.woff2" />
-    <Content Include="Areas\PurchaseManagement\Views\Purchase\_GridViewPartial.cshtml" />
     <None Include="Properties\PublishProfiles\Traditeo.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
@@ -393,6 +392,7 @@
     <Content Include="Scripts\SlickGrid\README.md" />
     <Content Include="Views\Lookups\Items.cshtml" />
     <Content Include="Views\Lookups\CreateBatch.cshtml" />
+    <Content Include="Views\Shared\ViewControl.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

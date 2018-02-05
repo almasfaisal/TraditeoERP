@@ -35,10 +35,29 @@
     var branchID = '@Model.BranchID';
     var transactionItemJson = '@Model.TransactionItemJson';
     var transactionLedgerJson = '@Model.TransactionLedgerJson';
+    var transactionChargeJson='@Model.TransactionChargeJson'
 </script>
 
+<div class="title_actions_pane">
+    <div class="page_actions">
+        <input id="SaveCmd" class="redbgbtn" type="submit" value="Save" onclick="SavePurchase()" />
+        <input id="SubmitCmd" class="redbgbtn" type="submit" value="Submit" />
+        <input id="PostCmd" class="redbgbtn" type="button" value="Post" />
+        <input id="PrintCmd" class="redbgbtn" type="button" value="Print" />
+
+        <input type="button" id="ApproveCmd" class="redbgbtn" onclick="ApproveDocument(this, false)" hidden="hidden" />
+        <input type="button" id="RejectCmd" class="redbgbtn" onclick="RejectDocument(this, false)" hidden="hidden" />
+        <input type="button" id="EmailCmd" class="redbgbtn" value="Send Email" onclick="ConvertPdf()" />
+        <input type="button" id="PrintBarCodeCmd" class="redbgbtn" value="Barcode" onclick="PrintBarCode()" visible="false" />
+        <input type="button" id="PostStockCmd" class="redbgbtn" value="Post Stock" onclick="PostStock()" />
+    </div>
+</div>
+
+@*@using (Html.BeginForm("Edit", "Purchase", FormMethod.Post))*@
 @using (Html.BeginForm())
 {
+
+
     @Html.ValidationSummary(true)
     <fieldset class="fieldset">
         <legend>Purchase</legend>
@@ -55,7 +74,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseDate)
             </span>
-            @Html.TextBoxFor(model => model.PurchaseDate, new { @Value = Model.PurchaseDate.ToString(ApplicationUtility.Utility.DateFormat)})
+            @Html.TextBoxFor(model => model.PurchaseDate, new { @Value = Model.PurchaseDate.ToString(ApplicationUtility.Utility.DateFormat) })
             @Html.ValidationMessageFor(model => model.PurchaseDate)
         </div>
         <div class="datacontrol">
@@ -76,7 +95,7 @@
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PaymentTermID)
             </span>
-            @Html.DropDownListFor(model => model.VendorID, (IEnumerable<SelectListItem>)ViewBag.PaymentTermSelectList, "--Select--")
+            @Html.DropDownListFor(model => model.PaymentTermID, (IEnumerable<SelectListItem>)ViewBag.PaymentTermSelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.PaymentTermID)
         </div>
         <div class="datacontrol">
@@ -95,18 +114,42 @@
         </div>
         <div class="datacontrol">
             <span class="datacontrollabel">
-                @Html.LabelFor(model => model.ReferenceNumber)
-            </span>
-            @Html.EditorFor(model => model.ReferenceNumber)
-            @Html.ValidationMessageFor(model => model.ReferenceNumber)
-        </div>
-        <div class="datacontrol">
-            <span class="datacontrollabel">
                 @Html.LabelFor(model => model.PurchaseAuthorityID)
             </span>
             @Html.DropDownListFor(model => model.PurchaseAuthorityID, (IEnumerable<SelectListItem>)ViewBag.PurchaseAuthoritySelectList, "--Select--")
             @Html.ValidationMessageFor(model => model.PurchaseAuthorityID)
         </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.CurrencyID)
+            </span>
+            @Html.DropDownListFor(model => model.CurrencyID, (IEnumerable<SelectListItem>)ViewBag.CurrencySelectList, "--Select--")
+            @Html.ValidationMessageFor(model => model.CurrencyID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseOrderID)
+            </span>
+            @Html.DropDownListFor(model => model.PurchaseOrderID, (IEnumerable<SelectListItem>)ViewBag.VendorSelectList, "--Select--")
+            @Html.ValidationMessageFor(model => model.PurchaseOrderID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseSuggestionID)
+            </span>
+            @Html.DropDownListFor(model => model.PurchaseSuggestionID, (IEnumerable<SelectListItem>)ViewBag.VendorSelectList, "--Select--")
+            @Html.ValidationMessageFor(model => model.PurchaseSuggestionID)
+        </div>
+        <div class="datacontrol">
+            <span class="datacontrollabel">
+                @Html.LabelFor(model => model.PurchaseRequestID)
+            </span>
+            @Html.DropDownListFor(model => model.PurchaseRequestID, (IEnumerable<SelectListItem>)ViewBag.VendorSelectList, "--Select--")
+            @Html.ValidationMessageFor(model => model.PurchaseRequestID)
+        </div>
+        
+
+        
         <div class="datacontrol Remarks">
             <span class="datacontrollabel">
                 @Html.LabelFor(model => model.Remarks)
@@ -117,5 +160,34 @@
         
     </fieldset>
     <div id="TransactionGrid" style="width: 99%; height: 300px; margin: 5px;"></div>
+    <div class="datacontrol">
+        <span class="datacontrollabel">
+            @Html.LabelFor(model => model.DiscountPercentage)
+        </span>
+        @Html.EditorFor(model => model.DiscountPercentage)
+        @Html.ValidationMessageFor(model => model.DiscountPercentage)
+    </div>
+    <div class="datacontrol">
+        <span class="datacontrollabel">
+            @Html.LabelFor(model => model.DiscountPercentage)
+        </span>
+        @Html.EditorFor(model => model.DiscountPercentage)
+        @Html.ValidationMessageFor(model => model.DiscountPercentage)
+    </div>
+    <div class="datacontrol">
+        <span class="datacontrollabel">
+            @Html.LabelFor(model => model.DiscountAmount)
+        </span>
+        @Html.EditorFor(model => model.DiscountAmount)
+        @Html.ValidationMessageFor(model => model.DiscountAmount)
+    </div>
+    <div class="datacontrol">
+        <span class="datacontrollabel">
+            @Html.LabelFor(model => model.GrandTotal)
+        </span>
+        @Html.EditorFor(model => model.GrandTotal)
+        @Html.ValidationMessageFor(model => model.GrandTotal)
+    </div>
+    <div id="AdditionalChargeGrid" style="width: 99%; height: 150px; margin: 5px;"></div>
     <div id="LookupDiv" style="display: none"></div>
 }

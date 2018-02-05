@@ -120,6 +120,12 @@
   <data name="AddDate" xml:space="preserve">
     <value>Add Date</value>
   </data>
+  <data name="AdditionalCharge" xml:space="preserve">
+    <value>Charge</value>
+  </data>
+  <data name="AdditionalChargeCode" xml:space="preserve">
+    <value>Charge Code</value>
+  </data>
   <data name="AddUser" xml:space="preserve">
     <value>Add User</value>
   </data>
@@ -140,6 +146,12 @@
   </data>
   <data name="BusinessPeriod" xml:space="preserve">
     <value>Business Period</value>
+  </data>
+  <data name="ChargeAmount" xml:space="preserve">
+    <value>Charges</value>
+  </data>
+  <data name="ChargePercentage" xml:space="preserve">
+    <value>Charge(%)</value>
   </data>
   <data name="Currency" xml:space="preserve">
     <value>Currency</value>
@@ -192,11 +204,17 @@
   <data name="IsDisputePayment" xml:space="preserve">
     <value>Dispute Payment?</value>
   </data>
+  <data name="IsIncludeInventory" xml:space="preserve">
+    <value>Include Inventory?</value>
+  </data>
   <data name="IsPosted" xml:space="preserve">
     <value>Posted?</value>
   </data>
   <data name="IsRejected" xml:space="preserve">
     <value>Rejected?</value>
+  </data>
+  <data name="IsVendorPayable" xml:space="preserve">
+    <value>Vendor Payable?</value>
   </data>
   <data name="LineDiscount" xml:space="preserve">
     <value>Line Discount</value>

@@ -14,11 +14,8 @@ function MessageBox(message) {
 var applicationDateFormat = '';
 
 function OnRowDblClick(s, e) {
-    debugger;
     s.GetRowValues(e.visibleIndex, 'UniqueID', function (value) {
-        //var NestId = $(this).data('id');
-        //var url = "/Artists/Details?NestId=" + NestId;
-        window.location.href = "../Purchase/Edit?id=" + value;
-
+        var area = $('#ViewGrid').attr('area');
+        window.location.href = localStorage.getItem("host") + "/" + area + "/" + $('#ViewGrid').attr('controller') + "/Edit?id=" + value;
     });
 }

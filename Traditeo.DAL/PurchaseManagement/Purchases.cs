@@ -66,14 +66,43 @@ namespace Traditeo.DAL.PurchaseManagement
 
                 _reader = command.ExecuteReader(CommandBehavior.CloseConnection);
                 _purchases = ((IObjectContextAdapter)this).ObjectContext.Translate<ViewModel.PurchaseManagement.Purchases>(_reader).ToList()[0];
+
                 _reader.NextResult();
                 _purchases.TransactionItem = ((IObjectContextAdapter)this).ObjectContext.Translate<ViewModel.Transactions.TransactionItems>(_reader).ToList();
                 _purchases.TransactionItemJson= JsonConvert.SerializeObject(_purchases.TransactionItem);
+
                 _reader.NextResult();
                 _purchases.TransactionLedger = ((IObjectContextAdapter)this).ObjectContext.Translate<ViewModel.Transactions.TransactionLedgers>(_reader).ToList();
                 _purchases.TransactionLedgerJson = JsonConvert.SerializeObject(_purchases.TransactionLedger);
+
+                _reader.NextResult();
+                _purchases.TransactionCharge = ((IObjectContextAdapter)this).ObjectContext.Translate<ViewModel.Transactions.TransactionCharges>(_reader).ToList();
+                _purchases.TransactionChargeJson = JsonConvert.SerializeObject(_purchases.TransactionCharge);
             }
             return _purchases;
+        }
+
+        public void SavePurchase(Int64 purchaseID, string purchaseJSON)
+        {
+            _parms = new SqlParameter[2];
+
+            _parms[0] = new SqlParameter("@PurchaseID", SqlDbType.Int);
+            _parms[0].Value = purchaseID;
+            _parms[1] = new SqlParameter("@PurchaseJSON", SqlDbType.NVarChar);
+            _parms[1].Value = purchaseJSON;
+
+            using (DbCommand command = this.Database.Connection.CreateCommand())
+            {
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "SavePurchase";
+                command.Parameters.AddRange(_parms);
+
+                if (this.Database.Connection.State == ConnectionState.Closed)
+                    this.Database.Connection.Open();
+
+                int effectedRow=command.ExecuteNonQuery();
+                
+            }
         }
     }
 

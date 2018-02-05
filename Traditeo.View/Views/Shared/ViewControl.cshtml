@@ -1,0 +1,32 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(settings =>
+    {
+        settings.Name = "ViewGrid";
+        settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+        settings.CallbackRouteValues = new { Controller = this.ViewContext.RouteData.Values["controller"].ToString(), Action = "ShowView" };
+
+
+        settings.KeyFieldName = "UniqueID";
+        settings.Attributes.Add("controller", this.ViewContext.RouteData.Values["controller"].ToString());
+        settings.Attributes.Add("area", this.ViewContext.RouteData.DataTokens["area"].ToString());
+
+        settings.SettingsPager.Visible = true;
+        settings.Settings.ShowGroupPanel = false;
+        settings.Settings.ShowFilterRow = true;
+        settings.SettingsBehavior.AllowSelectByRowClick = true;
+
+        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
+        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
+        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
+        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
+        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
+
+        foreach (var item in (Dictionary<string, string>)ViewBag.ColumnHeader)
+        {
+            settings.Columns.Add(item.Key, item.Value);
+        }
+        settings.ClientSideEvents.RowDblClick = "OnRowDblClick";
+
+    });
+}
+@grid.Bind(Model).GetHtml()

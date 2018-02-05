@@ -37,7 +37,7 @@ namespace Traditeo.ViewModel.Transactions
         public decimal MarginAmount { get; set; }
         public decimal DiscountPercentage { get; set; }
         public decimal DiscountAmount { get; set; }
-        public decimal TotalCost { get; set; }
+        public decimal PrimaryCost { get; set; }
         public decimal TotalDiscount { get; set; }
         public decimal PurchasePrice { get; set; }
         public decimal SalePrice { get; set; }

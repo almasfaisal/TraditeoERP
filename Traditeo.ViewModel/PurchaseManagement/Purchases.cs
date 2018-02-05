@@ -40,8 +40,12 @@ namespace Traditeo.ViewModel.PurchaseManagement
         [Display(Name = "PurchaseOrderNumber", ResourceType = typeof(ApplicationUtility.Resources))]
         public int? PurchaseOrderID { get; set; }
         public string PurchaseOrderNumber { get; set; }
+
+        [Display(Name = "PurchaseSuggestionNumber", ResourceType = typeof(ApplicationUtility.Resources))]
         public int? PurchaseSuggestionID { get; set; }
         public string PurchaseSuggestionNumber { get; set; }
+
+        [Display(Name = "PurchaseRequestNumber", ResourceType = typeof(ApplicationUtility.Resources))]
         public int? PurchaseRequestID { get; set; }
         public string PurchaseRequestNumber { get; set; }
 
@@ -53,6 +57,8 @@ namespace Traditeo.ViewModel.PurchaseManagement
         [Display(Name = "PurchaseAuthority", ResourceType = typeof(ApplicationUtility.Resources))]
         public int PurchaseAuthorityID { get; set; }
         public string PurchaseAuthority { get; set; }
+
+        [Display(Name = "Currency", ResourceType = typeof(ApplicationUtility.Resources))]
         public int CurrencyID { get; set; }
         public decimal ExchangeRate { get; set; }
         public int? ProjectID { get; set; }
@@ -81,7 +87,11 @@ namespace Traditeo.ViewModel.PurchaseManagement
 
         public object TransactionItemJson { get; set; }
         public object TransactionLedgerJson { get; set; }
+        public object TransactionChargeJson { get; set; }
+
         public List<TransactionItems> TransactionItem { get; set; }
         public List<TransactionLedgers> TransactionLedger { get; set; }
+        public List<TransactionCharges> TransactionCharge { get; set; }
+        
     }
 }

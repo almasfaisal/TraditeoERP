@@ -13,7 +13,7 @@
     MarginAmount: 11,
     DiscountPercentage: 12,
     DiscountAmount: 13,
-    TotalCost: 14,
+    PrimaryCost: 14,
     TotalDiscount: 15,
     NetTotal:16,
     Naration: 17,
@@ -21,12 +21,49 @@
     DeleteLink:19
 }
 
+ChargesBrowser = {
+    LineID: 0,
+    AdditionalChargeCode: 1,
+    AdditionalCharge: 2,
+    IsIncludeInventory: 3,
+    IsVendorPayable: 4,
+    Currency: 5,
+    ExchangeRate: 6,
+    ChargePercentage: 7,
+    ChargeAmount: 8,
+    Vendor: 9
+}
+
 var itemJson='';
-var ledgerJson='';
+var ledgerJson = '';
+var chargeJson = '';
 var defaultWarehouseID = 0;
 var defaultWarehouse = '';
 var gridColumns = [];
+var chargesColumns = [];
 var gridData = [];
+var chargesData = [];
+var direction = false;
+
+$(document).ready(function () {
+    $('#PurchaseDate').datepicker({ dateFormat: applicationDateFormat });
+    $('#DueDate').datepicker({ dateFormat: applicationDateFormat });
+
+    GetWarehouses();
+    GetCurrency();
+    GetVendor();
+    itemJson = JSON.parse(transactionItemJson.replace(/&quot;/g, '"'));
+    ledgerJson = JSON.parse(transactionLedgerJson.replace(/&quot;/g, '"'));
+    chargeJson = JSON.parse(transactionChargeJson.replace(/&quot;/g, '"'));
+    PopulateData(itemJson);
+    BindPurchaseGrid();
+
+    chargesData = chargeJson;
+    BindChargesGrid();
+    CalculateLineTotal();
+    CalculateChargesTotal();
+});
+
 
 var CommaFormatter = function (row, cell, value, columnDef, dataContext) {
     return parseFloat(value, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,").toString();
@@ -35,7 +72,6 @@ var CommaFormatter = function (row, cell, value, columnDef, dataContext) {
 var deleteLinkFormatter = function (row, cell, value, columnDef, dataContext) {
     return "<a  href='javascript:' onclick='DeleteLineItem(" + dataContext.id + ");'  controltobindid='" + dataContext.id + "' title='Search Items' class='fa fa-external-link frameworkItemLookup' tabindex='0'></a>";
 };
-
 
 var linkFormatter = function (row, cell, value, columnDef, dataContext) {
     return "<a  href='javascript:' onclick='LoadItemHelp(" + dataContext.id + ");'  controltobindid='" + dataContext.id + "' title='Search Items' class='fa fa-external-link frameworkItemLookup' tabindex='0'></a>";
@@ -66,15 +102,26 @@ gridColumns = [
        { id: "MarginAmount", name: "Margin", field: "MarginAmount", width: 100, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
        { id: "DiscountPercentage", name: "Discount (%)", field: "DiscountPercentage", width: 100, cssClass: "NumberCell inactivecell", headerCssClass: "NumberCell", editor: Slick.Editors.Float },
        { id: "DiscountAmount", name: "Discount", field: "DiscountAmount", width: 100, cssClass: "NumberCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
-       { id: "TotalCost", name: "Total Cost", field: "TotalCost", width: 100, cssClass: "NumberCell TotalCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
+       { id: "PrimaryCost", name: "Primary Cost", field: "PrimaryCost", width: 100, cssClass: "NumberCell TotalCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
        { id: "TotalDiscount", name: "Total Discount", field: "TotalDiscount", width: 100, cssClass: "NumberCell",headerCssClass: "NumberCell", formatter: CommaFormatter },
        { id: "NetTotal", name: "Net Total", field: "NetTotal", width: 100, cssClass: "NumberCell NetTotalCell", headerCssClass: "NumberCell", formatter: CommaFormatter },
        { id: "Naration", name: "Naration", field: "Naration", sortable: true, width: 200, editor: Slick.Editors.Text },
        { id: "deletelink", name: "", field: "Link", sortable: false, width: 1, formatter: deleteLinkFormatter }
 ];
 
-var direction = false;
-
+chargesColumns = [
+       { id: "LineID", name: "Line#", field: "id", sortable: true, width: 2 },
+       { id: "AdditionalChargeCode", name: "Charge Code", field: "AdditionalChargeCode", width: 100 },
+       { id: "AdditionalCharge", name: "Charge", field: "AdditionalCharge", sortable: true, width: 150 },
+       { id: "IsIncludeInventory", name: "Include Inventory?", field: "IsIncludeInventory", sortable: false, width: 150, formatter: linkFormatter },
+       { id: "IsVendorPayable", name: "Vendor Payable?", field: "IsVendorPayable", sortable: true, width: 150},
+       { id: "Currency", name: "Currency", field: "Currency", width: 150, editor: Slick.Editors.ComboBox, idProperty: 'CurrencyID', cssClass: "inactivecell" },
+       { id: "ExchangeRate", name: "Exchange Rate", field: "ExchangeRate", width: 100, cssClass: "NumberCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float },
+       { id: "ChargePercentage", name: "Charges(%)", field: "ChargePercentage", width: 100, cssClass: "NumberCell PriceCell", headerCssClass: "NumberCell", editor: Slick.Editors.Float },
+       { id: "ChargeAmount", name: "Amount", field: "ChargeAmount", width: 100, cssClass: "NumberCell inactivecell", headerCssClass: "NumberCell", editor: Slick.Editors.Float },
+       { id: "Vendor", name: "Vendor", field: "VendorDescription", width: 200, cssClass: "NumberCell", editor: Slick.Editors.ComboBox, idProperty: 'VendorID', cssClass: "inactivecell" },
+       { id: "deletelink", name: "", field: "Link", sortable: false, width: 1, formatter: deleteLinkFormatter }
+];
 
 function AddNewLine(id) {
     var d = gridData[id] = {};
@@ -93,37 +140,12 @@ function AddNewLine(id) {
     d["MarginAmount"] = 0;
     d["DiscountPercentage"] = 0;
     d["DiscountAmount"] = 0;
-    d["TotalCost"] = 0;
+    d["PrimaryCost"] = 0;
     d["TotalDiscount"] = 0;
     d["NetTotal"] = 0;
     d["Naration"] = '';
     d["TrackingTypeID"] = 0;
 }
-
-////function AddUpdateLine(id) {
-////    var d = gridData[id] = {};
-////    d["id"] = id;
-////    d["LineID"] = id + 1;
-////    d['WarehouseID'] = defaultWarehouseID;
-////    d['Warehouse'] = defaultWarehouse;
-////    d["ItemCode"] = null;
-////    d["ItemName"] = null;
-////    d["Quantity"] = 0;
-////    d["BonusQuantity"] = 0;
-////    d["ItemCost"] = 0;
-////    d["ItemDiscountPercentage"] = 0;
-////    d["ItemDiscountAmount"] = 0;
-////    d["MarginPercentage"] = 0;
-////    d["MarginAmount"] = 0;
-////    d["DiscountPercentage"] = 0;
-////    d["DiscountAmount"] = 0;
-////    d["TotalCost"] = 0;
-////    d["TotalDiscount"] = 0;
-////    d["NetTotal"] = 0;
-////    d["Naration"] = '';
-////    d["TrackingTypeID"] = 0;
-////}
-
 
 function PopulateData(dataTable) {
     
@@ -146,7 +168,7 @@ function PopulateData(dataTable) {
         d["MarginAmount"] = dataTable[i].MarginAmount;
         d["DiscountPercentage"] = dataTable[i].DiscountPercentage;
         d["DiscountAmount"] = dataTable[i].DiscountAmount;
-        d["TotalCost"] = dataTable[i].TotalCost;
+        d["PrimaryCost"] = dataTable[i].TotalCost;
         d["TotalDiscount"] = dataTable[i].TotalDiscount;
         d["NetTotal"] = dataTable[i].NetTotal;
         d["Naration"] = dataTable[i].Naration;
@@ -158,30 +180,6 @@ function PopulateData(dataTable) {
     }
 }
 
-function GetWarehouses() {
-    
-    var branchid = branchID;
-    var warehouseList=[];
-
-    var host = localStorage.getItem("host");
-    $.get(host + "/Home/GetWarehouse").done(function (responce) {
-        for (var i = 0; i < responce.length; i++) {
-            _itemArray = {};
-            _itemArray.name = responce[i].Warehouse;
-            _itemArray.value = responce[i].WarehouseID;
-            warehouseList.push(_itemArray);
-        }
-        if (responce.length == 1) {
-            defaultWarehouseID = warehouseList[0].value;
-            defaultWarehouse = warehouseList[0].name;
-        } else {
-            defaultWarehouseID = 0;
-            defaultWarehouse = '';
-        }
-        gridColumns[Browser.Warehouse].items = warehouseList;
-    });
-}
-
 function AddLineItem() {
     
     if (gridDataView.getItems()[gridDataView.getItems().length - 1]['ItemCode'] != null) {
@@ -189,7 +187,7 @@ function AddLineItem() {
         var lineID = parseInt(gridDataView.getItems()[gridDataView.getItems().length - 1]['LineID']) + 1;
         var lineItem = {
             "id": rowId,"LineID" : lineID, "WarehouseID": defaultWarehouseID, "Warehouse": defaultWarehouse, "ItemCode": null, "ItemName": "", "Quantity": 0, "BonusQuantity": 0, "ItemCost": 0, "ItemDiscountPercentage": 0,
-            "ItemDiscountAmount": 0, "MarginPercentage": 0, "MarginAmount": 0, "DiscountPercentage": 0, "DiscountAmount": 0, "TotalCost": 0, "TotalDiscount": 0, "NetTotal": 0, "Naration": ''
+            "ItemDiscountAmount": 0, "MarginPercentage": 0, "MarginAmount": 0, "DiscountPercentage": 0, "DiscountAmount": 0, "PrimaryCost": 0, "TotalDiscount": 0, "NetTotal": 0, "Naration": ''
         };
         gridDataView.addItem(lineItem);
         gridDataView.updateItem(lineItem.id, lineItem);
@@ -223,7 +221,7 @@ function GetItems(rowID, warehouseID) {
             gridData[rowID]["MarginAmount"] = 0;
             gridData[rowID]["DiscountPercentage"] = 0;
             gridData[rowID]["DiscountAmount"] = 0;
-            gridData[rowID]["TotalCost"] = 0;
+            gridData[rowID]["PrimaryCost"] = 0;
             gridData[rowID]["TotalDiscount"] = 0;
             gridData[rowID]["NetTotal"] = 0;
             gridData[rowID]["TrackingTypeID"] = responce[0]["TrackingTypeID"];
@@ -236,29 +234,28 @@ function GetItems(rowID, warehouseID) {
     }, 0);
 }
 
-
 function CalculateLineDiscount(rowID) {
     
     if (gridData[rowID]["Quantity"] != '' && parseFloat(gridData[rowID]["Quantity"]) != 0 && gridData[rowID]["ItemCost"] != '' && parseFloat(gridData[rowID]["ItemCost"]) != 0) {
-        gridData[rowID]["TotalCost"] = parseFloat(gridData[rowID]["Quantity"]) * parseFloat(gridData[rowID]["ItemCost"].toString().replace(/,/g, ""));
+        gridData[rowID]["PrimaryCost"] = parseFloat(gridData[rowID]["Quantity"]) * parseFloat(gridData[rowID]["ItemCost"].toString().replace(/,/g, ""));
     }
 
     if (gridData[rowID]["ItemDiscountPercentage"] > 0) {
-        gridData[rowID]["ItemDiscountAmount"] = (parseFloat(gridData[rowID]["ItemDiscountPercentage"]) * parseFloat(gridData[rowID]["TotalCost"])) / 100;
+        gridData[rowID]["ItemDiscountAmount"] = (parseFloat(gridData[rowID]["ItemDiscountPercentage"]) * parseFloat(gridData[rowID]["PrimaryCost"])) / 100;
     }
     else {
         gridData[rowID]["ItemDiscountAmount"] = 0;
     }
 
     if (gridData[rowID]["MarginPercentage"] > 0) {
-        gridData[rowID]["MarginAmount"] = (parseFloat(gridData[rowID]["MarginPercentage"]) * (parseFloat(gridData[rowID]["TotalCost"]) - parseFloat(gridData[rowID]["ItemDiscountAmount"]))) / 100;
+        gridData[rowID]["MarginAmount"] = (parseFloat(gridData[rowID]["MarginPercentage"]) * (parseFloat(gridData[rowID]["PrimaryCost"]) - parseFloat(gridData[rowID]["ItemDiscountAmount"]))) / 100;
     }
     else {
         gridData[rowID]["MarginAmount"] = 0;
     }
 
     if (gridData[rowID]["DiscountPercentage"] > 0) {
-        gridData[rowID]["DiscountAmount"] = (parseFloat(gridData[rowID]["DiscountPercentage"]) * (parseFloat(gridData[rowID]["TotalCost"]) - parseFloat(gridData[rowID]["ItemDiscountAmount"]) - parseFloat(gridData[rowID]["MarginAmount"]))) / 100;
+        gridData[rowID]["DiscountAmount"] = (parseFloat(gridData[rowID]["DiscountPercentage"]) * (parseFloat(gridData[rowID]["PrimaryCost"]) - parseFloat(gridData[rowID]["ItemDiscountAmount"]) - parseFloat(gridData[rowID]["MarginAmount"]))) / 100;
 
     }
     else {
@@ -266,7 +263,7 @@ function CalculateLineDiscount(rowID) {
     }
 
     gridData[rowID]["TotalDiscount"] = parseFloat(gridData[rowID]["ItemDiscountAmount"]) + parseFloat(gridData[rowID]["MarginAmount"]) + parseFloat(gridData[rowID]["DiscountAmount"]);
-    gridData[rowID]["NetTotal"] = parseFloat(gridData[rowID]["TotalCost"]) - parseFloat(gridData[rowID]["TotalDiscount"])
+    gridData[rowID]["NetTotal"] = parseFloat(gridData[rowID]["PrimaryCost"]) - parseFloat(gridData[rowID]["TotalDiscount"])
 
     lineItemGrid.invalidateRow(rowID);
     lineItemGrid.render();
@@ -278,10 +275,9 @@ function CalculateLineTotal() {
     var sumItemDiscountAmount = 0;
     var sumMarginAmount = 0;
     var sumDiscountAmount = 0;
-    var sumTotalCost = 0;
+    var sumPrimaryCost = 0;
     var sumTotalDiscount = 0;
     var sumNetTotal = 0;
-
 
     for (var j = 0; j < gridDataView.getItems().length; j++) {
         sumQuantity += parseFloat(gridDataView.getItems()[j]['Quantity'].toString().replace(/,/g, ""));
@@ -289,7 +285,7 @@ function CalculateLineTotal() {
         sumItemDiscountAmount += parseFloat(gridDataView.getItems()[j]['ItemDiscountAmount'].toString().replace(/,/g, ""));
         sumMarginAmount += parseFloat(gridDataView.getItems()[j]['MarginAmount'].toString().replace(/,/g, ""));
         sumDiscountAmount += parseFloat(gridDataView.getItems()[j]['DiscountAmount'].toString().replace(/,/g, ""));
-        sumTotalCost += parseFloat(gridDataView.getItems()[j]['TotalCost'].toString().replace(/,/g, ""));
+        sumPrimaryCost += parseFloat(gridDataView.getItems()[j]['TotalCost'].toString().replace(/,/g, ""));
         sumTotalDiscount += parseFloat(gridDataView.getItems()[j]['TotalDiscount'].toString().replace(/,/g, ""));
         sumNetTotal += parseFloat(gridDataView.getItems()[j]['NetTotal'].toString().replace(/,/g, ""));
     }
@@ -300,10 +296,20 @@ function CalculateLineTotal() {
     $('<label id="ItemDiscountAmountLbl" class="NumberTotal">' + sumItemDiscountAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("ItemDiscountAmount")).empty());
     $('<label id="MarginAmountLbl" class="NumberTotal">' + sumMarginAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("MarginAmount")).empty());
     $('<label id="DiscountAmountLbl" class="NumberTotal">' + sumDiscountAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("DiscountAmount")).empty());
-    $('<label id="TotalCostLbl" class="NumberTotal">' + sumTotalCost.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("TotalCost")).empty());
+    $('<label id="PrimaryCostLbl" class="NumberTotal">' + sumPrimaryCost.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("TotalCost")).empty());
     $('<label id="TotalDiscountLbl" class="NumberTotal">' + sumTotalDiscount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("TotalDiscount")).empty());
     $('<label id="NetTotalLbl" class="NumberTotal">' + sumNetTotal.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("NetTotal")).empty());
 
+}
+
+function CalculateChargesTotal() {
+    var sumChargeAmount = 0;
+    for (var j = 0; j < chargesDataView.getItems().length; j++) {
+        sumChargeAmount += parseFloat(chargesDataView.getItems()[j]['ChargeAmount'].toString().replace(/,/g, ""));
+    }
+
+    $('<span class="floatleft">Total:</span>').appendTo($(chargesGrid.getHeaderRowColumn("AdditionalCharge")).empty());
+    $('<label id="ChargeAmountLbl" class="NumberTotal">' + sumChargeAmount.toFixed(2) + '</label>').appendTo($(chargesGrid.getHeaderRowColumn("ChargeAmount")).empty());
 }
 
 function BindPurchaseGrid() {
@@ -330,7 +336,7 @@ function BindPurchaseGrid() {
                 gridData[args.row]["MarginAmount"] = 0;
                 gridData[args.row]["DiscountPercentage"] = 0;
                 gridData[args.row]["DiscountAmount"] = 0;
-                gridData[args.row]["TotalCost"] = 0;
+                gridData[args.row]["PrimaryCost"] = 0;
                 gridData[args.row]["TotalDiscount"] = 0;
                 gridData[args.row]["NetTotal"] = 0;
                 gridData[args.row]["TrackingTypeID"] = 0;
@@ -364,6 +370,34 @@ function BindPurchaseGrid() {
     gridDataView.endUpdate();
 }
 
+function BindChargesGrid() {
+    chargesDataView = new Slick.Data.DataView({ inlineFilters: true });
+    chargesGrid = new Slick.Grid("#AdditionalChargeGrid", chargesDataView, chargesColumns, gridOption);
+    chargesGrid.setSelectionModel(new Slick.RowSelectionModel());
+    chargesGrid.render();
+
+    chargesGrid.onCellChange.subscribe(function (e, args) {
+        if (chargesData[args.row]["ChargePercentage"] != '') {
+            chargesData[args.row]["ChargeAmount"] = (parseFloat($('#GrandTotal').val()) * parseFloat(chargesData[args.row]["ChargePercentage"].toString().replace(/,/g, ""))) / 100;
+        }
+        CalculateChargesTotal();
+    });
+
+    chargesDataView.onRowCountChanged.subscribe(function (e, args) {
+        chargesGrid.updateRowCount();
+        chargesGrid.invalidate();
+        chargesGrid.render();
+    });
+    chargesDataView.onRowsChanged.subscribe(function (e, args) {
+        chargesGrid.invalidateRows(args.rows);
+        chargesGrid.invalidate();
+        chargesGrid.render();
+    });
+
+    chargesDataView.beginUpdate();
+    chargesDataView.setItems(chargesData);
+    chargesDataView.endUpdate();
+}
 
 function DeleteLineItem(rowID) {
 
@@ -398,7 +432,6 @@ function DeleteLineItem(rowID) {
     }
     CalculateLineTotal();
 }
-
 
 function SetBatchQuantity(obj) {
     var rowID = $("#RowIDHdn").val();
@@ -488,17 +521,92 @@ function LoadItemHelp(rowID) {
     }
 }
 
+function GetWarehouses() {
+    var branchid = branchID;
+    var warehouseList = [];
 
-$(document).ready(function () {
-    $('#PurchaseDate').datepicker({ dateFormat: applicationDateFormat });
-    $('#DueDate').datepicker({ dateFormat: applicationDateFormat });
+    var host = localStorage.getItem("host");
+    $.get(host + "/Home/GetWarehouse").done(function (responce) {
+        for (var i = 0; i < responce.length; i++) {
+            _itemArray = {};
+            _itemArray.name = responce[i].Warehouse;
+            _itemArray.value = responce[i].WarehouseID;
+            warehouseList.push(_itemArray);
+        }
+        if (responce.length == 1) {
+            defaultWarehouseID = warehouseList[0].value;
+            defaultWarehouse = warehouseList[0].name;
+        } else {
+            defaultWarehouseID = 0;
+            defaultWarehouse = '';
+        }
+        gridColumns[Browser.Warehouse].items = warehouseList;
+    });
+}
 
-    GetWarehouses();
-    itemJson = JSON.parse(transactionItemJson.replace(/&quot;/g, '"'));
-    ledgerJson = JSON.parse(transactionLedgerJson.replace(/&quot;/g, '"'));
+function GetCurrency() {
+    var currencyList = [];
+    var host = localStorage.getItem("host");
+    $.get(host + "/Home/GetCurrency").done(function (responce) {
+        for (var i = 0; i < responce.length; i++) {
+            _itemArray = {};
+            _itemArray.name = responce[i].Currency;
+            _itemArray.value = responce[i].CurrencyID;
+            currencyList.push(_itemArray);
+        }
+        
+        chargesColumns[ChargesBrowser.Currency].items = currencyList;
+    });
+}
+
+function GetVendor() {
+    var vendorList = [];
+    var host = localStorage.getItem("host");
+    $.get(host + "/Home/GetVendor").done(function (responce) {
+        for (var i = 0; i < responce.length; i++) {
+            _itemArray = {};
+            _itemArray.name = responce[i].VendorDescription;
+            _itemArray.value = responce[i].VendorID;
+            vendorList.push(_itemArray);
+        }
+        chargesColumns[ChargesBrowser.Vendor].items = vendorList;
+    });
+}
+
+function SavePurchase() {
+    var purchaseData = {};
+    purchaseData.PurchaseID =$('#PurchaseID').val() ;
+    purchaseData.PurchaseNumber = $('#PurchaseNumber').val();
+    purchaseData.PurchaseDate = $('#PurchaseDate').val();
+    purchaseData.DueDate = $('#DueDate').val();
+    purchaseData.BranchID = $('#BranchID').val();
+    purchaseData.VendorID = $('#VendorID').val();
+    purchaseData.PaymentTermID = $('#PaymentTermID').val();
+    purchaseData.ReferenceNumber = $('#ReferenceNumber').val();
+    purchaseData.PurchaseAuthorityID = $('#PurchaseAuthorityID').val();
+    purchaseData.CurrencyID = $('#CurrencyID').val();
+    purchaseData.PurchaseOrderID = $('#PurchaseOrderID').val();
+    purchaseData.PurchaseSuggestionID = $('#PurchaseSuggestionID').val();
+    purchaseData.PurchaseRequestID = $('#PurchaseRequestID').val();
+    purchaseData.DiscountPercentage = $('#DiscountPercentage').val();
+    purchaseData.DiscountPercentage = $('#DiscountPercentage').val();
+    purchaseData.DiscountAmount = $('#DiscountAmount').val();
+    purchaseData.GrandTotal = $('#GrandTotal').val();
+
+    purchaseData.Remarks = $('#Remarks').val();
     
-    PopulateData(itemJson);
-    BindPurchaseGrid(gridColumns, gridData);
-    CalculateLineTotal();
-});
+    purchaseData.TransactionItemJson = itemJson;
+    purchaseData.TransactionLedgerJson = ledgerJson;
+    purchaseData.TransactionChargeJson = chargeJson;
+    var host = localStorage.getItem("host");
 
+    $.post(host + "/PurchaseManagement/Purchase/Save", { purchaseID: $('#PurchaseID').val(), purchaseJSON: JSON.stringify(purchaseData) }).done(function (data, textStatus) {
+        alert(data);
+        alert(textStatus);
+    });
+
+    //$.post(host + "/PurchaseManagement/Purchase/Save", JSON.stringify(purchaseData)).done(function (responce, status) {
+    //    alert(responce);
+    //    alert(status);
+    //});
+}

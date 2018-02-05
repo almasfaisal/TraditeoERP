@@ -31,18 +31,26 @@ namespace Traditeo.Controllers
             _menus = new Models.Utility.Menus();
             return _menus.BindTree(new DAL.Utility.Menus().MenuList.ToList<Models.Utility.Menus>().Where(m => m.IsActive == true).ToList<Models.Utility.Menus>());
         }
+
         public JsonResult GetWarehouse()
         {
-            try
-            {
-                List<Models.ApplicationSetup.Inventory.Warehouses> warehouseList = null;
-                warehouseList = new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList.ToList();
-                return Json(warehouseList, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception Ex)
-            {
-                return Json(null, JsonRequestBehavior.AllowGet);
-            }
+            List<Models.ApplicationSetup.Inventory.Warehouses> warehouseList = null;
+            warehouseList = new DAL.ApplicationSetup.Inventory.Warehouses().WarehouseList.ToList();
+            return Json(warehouseList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetCurrency()
+        {
+            List<Models.ApplicationSetup.GeneralSetup.Currencies> currencyList = null;
+            currencyList = new DAL.ApplicationSetup.GeneralSetup.Currencies().CurrencyList.ToList();
+            return Json(currencyList, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetVendor()
+        {
+            List<Models.BusinessPartner.Vendors> vendorList = null;
+            vendorList = new DAL.BusinessPartner.Vendors().VendorList.ToList();
+            return Json(vendorList, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetResources()

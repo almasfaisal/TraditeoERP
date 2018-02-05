@@ -104,4 +104,18 @@ namespace Traditeo.Models.PurchaseManagement
         public decimal ExpenseOverhead { get; set; }
         public string Naration { get; set; }
     }
+
+    public class PurchaseCharges
+    {
+        [Key]
+        public Int64 PurchaseChargeID { get; set; }
+        public Int64 PurchaseID { get; set; }
+        public int AdditionalChargeID { get; set; }
+        public int CurrencyID { get; set; }
+        public decimal ExchangeRate { get; set; }
+        public decimal? ChargePercentage { get; set; }
+        public decimal ChargeAmount { get; set; }
+        public bool IsVendorPayable { get; set; }
+        public int? VendorID { get; set; }
+    }
 }

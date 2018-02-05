@@ -1,10 +1,9 @@
-﻿@model IEnumerable<Traditeo.ViewModel.PurchaseManagement.Purchases>
+﻿@*@model IEnumerable<Traditeo.ViewModel.PurchaseManagement.Purchases>*@
 
 @{
     ViewBag.Title = "Purchase";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <h2>Index</h2>
 
@@ -12,105 +11,5 @@
     @Html.ActionLink("Add New", "Create")
 </p>
 
-@Html.Action("GridViewPartial")
 
-@*@{
-    var grid = Html.DevExpress().GridView(settings =>
-    {
-        settings.Name = "GridView";
-        settings.CallbackRouteValues = new { Controller = "Purchase", Action = "Index" };
-
-
-        settings.KeyFieldName = "UniqueID";
-
-        settings.SettingsPager.Visible = true;
-        settings.Settings.ShowGroupPanel = false;
-        settings.Settings.ShowFilterRow = true;
-        settings.SettingsBehavior.AllowSelectByRowClick = true;
-
-        settings.SettingsAdaptivity.AdaptivityMode = GridViewAdaptivityMode.Off;
-        settings.SettingsAdaptivity.AdaptiveColumnPosition = GridViewAdaptiveColumnPosition.Right;
-        settings.SettingsAdaptivity.AdaptiveDetailColumnCount = 1;
-        settings.SettingsAdaptivity.AllowOnlyOneAdaptiveDetailExpanded = false;
-        settings.SettingsAdaptivity.HideDataCellsAtWindowInnerWidth = 0;
-        settings.Columns.Add("Branch");
-        settings.Columns.Add("PurchaseNumber");
-        settings.Columns.Add("PurchaseDate");
-        settings.Columns.Add("DueDate");
-        settings.Columns.Add("VendorCode");
-        settings.Columns.Add("Vendor");
-        settings.Columns.Add("ReferenceNumber");
-    });
-}
-@grid.Bind(Model).GetHtml()*@
-
-
-
-
-@*<div>
-    @{ 
-        var grid = new WebGrid(Model, canPage: true, canSort: true, rowsPerPage: 10);
-        grid.Pager(WebGridPagerModes.Numeric);
-        @grid.GetHtml(tableStyle: "table", htmlAttributes: new { id = "PurchaseID" },
-         columns: grid.Columns(
-             grid.Column("Branch"),
-             grid.Column("PurchaseNumber"),
-             grid.Column("PurchaseDate"),
-             grid.Column("DueDate"),
-             grid.Column("Vendor"),
-             grid.Column("GrandTotal"),
-             grid.Column(format: (item) => Html.ActionLink("Edit", "Edit", new { id = item.UniqueID }))
-             ));
-    }
-</div>*@
-
-@*<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Branch)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PurchaseNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PurchaseDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DueDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Vendor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GrandTotal)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Branch)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchaseNumber)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchaseDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DueDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vendor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GrandTotal)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.UniqueID })
-        </td>
-    </tr>
-}
-
-</table>*@
+@Html.Action("ShowView")

@@ -12,7 +12,6 @@ E:\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\Newtonsoft.Json.xml
 E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.csprojResolveAssemblyReference.cache
 E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.dll
 E:\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.pdb
-D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.csprojResolveAssemblyReference.cache
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\Traditeo.DAL.dll.config
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\Traditeo.DAL.dll
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\Traditeo.DAL.pdb
@@ -28,5 +27,6 @@ D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\EntityFramework.xml
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\EntityFramework.SqlServer.xml
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\Newtonsoft.Json.xml
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\bin\Debug\ApplicationUtility.pdb
+D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.csprojResolveAssemblyReference.cache
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.dll
 D:\Personal\TraditeoERP\Traditeo\Traditeo.DAL\obj\Debug\Traditeo.DAL.pdb

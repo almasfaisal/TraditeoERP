@@ -70,6 +70,24 @@ namespace ApplicationUtility {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Charge.
+        /// </summary>
+        public static string AdditionalCharge {
+            get {
+                return ResourceManager.GetString("AdditionalCharge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Charge Code.
+        /// </summary>
+        public static string AdditionalChargeCode {
+            get {
+                return ResourceManager.GetString("AdditionalChargeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add User.
         /// </summary>
         public static string AddUser {
@@ -129,6 +147,24 @@ namespace ApplicationUtility {
         public static string BusinessPeriod {
             get {
                 return ResourceManager.GetString("BusinessPeriod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Charges.
+        /// </summary>
+        public static string ChargeAmount {
+            get {
+                return ResourceManager.GetString("ChargeAmount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Charge(%).
+        /// </summary>
+        public static string ChargePercentage {
+            get {
+                return ResourceManager.GetString("ChargePercentage", resourceCulture);
             }
         }
         
@@ -286,6 +322,15 @@ namespace ApplicationUtility {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include Inventory?.
+        /// </summary>
+        public static string IsIncludeInventory {
+            get {
+                return ResourceManager.GetString("IsIncludeInventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Posted?.
         /// </summary>
         public static string IsPosted {
@@ -300,6 +345,15 @@ namespace ApplicationUtility {
         public static string IsRejected {
             get {
                 return ResourceManager.GetString("IsRejected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vendor Payable?.
+        /// </summary>
+        public static string IsVendorPayable {
+            get {
+                return ResourceManager.GetString("IsVendorPayable", resourceCulture);
             }
         }
         
