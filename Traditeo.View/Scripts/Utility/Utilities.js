@@ -19,3 +19,27 @@ function OnRowDblClick(s, e) {
         window.location.href = localStorage.getItem("host") + "/" + area + "/" + $('#ViewGrid').attr('controller') + "/Edit?id=" + value;
     });
 }
+
+function GetDateFormate(displayDate) {
+    
+    if (displayDate != "") {
+        var splitchar = displayDate.charAt(2);
+
+        var dateArray = displayDate.split(splitchar);
+        var year = dateArray[2];
+        var month = '';
+        var day = '';
+
+        if (applicationDateFormat.charAt(0) == 'd') {
+            day = dateArray[0];
+            month = parseInt(dateArray[1], 0) - 1;
+        }
+        else if (applicationDateFormat.charAt(0) == 'M') {
+            day = dateArray[1];
+            month = parseInt(dateArray[0], 0) - 1;
+        }
+        return new Date(year, month, day, 0, 0, 0, 0);
+    }
+    else
+        return "";
+}

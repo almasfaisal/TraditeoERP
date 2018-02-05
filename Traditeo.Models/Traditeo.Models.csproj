@@ -69,6 +69,7 @@
     <Compile Include="Security\Users.cs" />
     <Compile Include="Utility\Encryption.cs" />
     <Compile Include="Utility\Menus.cs" />
+    <Compile Include="Utility\ProfileData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="InventoryManagement\" />

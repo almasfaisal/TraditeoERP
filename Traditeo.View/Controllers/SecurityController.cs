@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace Traditeo.Controllers
 {
-    public class SecurityController : Controller
+    public class SecurityController : BaseController
     {
         private Models.Security.Users _users;
         // GET: Security
@@ -25,6 +25,8 @@ namespace Traditeo.Controllers
             if (_users !=null && _users.IsValidated)
             {
                 FormsAuthentication.RedirectFromLoginPage(Request.Form["UserIDTxt"], true);
+                //_profileData.UserID = _users.UserID;
+                //_profileData.BusinessPeriodID = 1;
                 return RedirectToAction("Index", "Home");
             }
             else

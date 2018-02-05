@@ -168,7 +168,7 @@ function PopulateData(dataTable) {
         d["MarginAmount"] = dataTable[i].MarginAmount;
         d["DiscountPercentage"] = dataTable[i].DiscountPercentage;
         d["DiscountAmount"] = dataTable[i].DiscountAmount;
-        d["PrimaryCost"] = dataTable[i].TotalCost;
+        d["PrimaryCost"] = dataTable[i].PrimaryCost;
         d["TotalDiscount"] = dataTable[i].TotalDiscount;
         d["NetTotal"] = dataTable[i].NetTotal;
         d["Naration"] = dataTable[i].Naration;
@@ -285,7 +285,7 @@ function CalculateLineTotal() {
         sumItemDiscountAmount += parseFloat(gridDataView.getItems()[j]['ItemDiscountAmount'].toString().replace(/,/g, ""));
         sumMarginAmount += parseFloat(gridDataView.getItems()[j]['MarginAmount'].toString().replace(/,/g, ""));
         sumDiscountAmount += parseFloat(gridDataView.getItems()[j]['DiscountAmount'].toString().replace(/,/g, ""));
-        sumPrimaryCost += parseFloat(gridDataView.getItems()[j]['TotalCost'].toString().replace(/,/g, ""));
+        sumPrimaryCost += parseFloat(gridDataView.getItems()[j]['PrimaryCost'].toString().replace(/,/g, ""));
         sumTotalDiscount += parseFloat(gridDataView.getItems()[j]['TotalDiscount'].toString().replace(/,/g, ""));
         sumNetTotal += parseFloat(gridDataView.getItems()[j]['NetTotal'].toString().replace(/,/g, ""));
     }
@@ -296,7 +296,7 @@ function CalculateLineTotal() {
     $('<label id="ItemDiscountAmountLbl" class="NumberTotal">' + sumItemDiscountAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("ItemDiscountAmount")).empty());
     $('<label id="MarginAmountLbl" class="NumberTotal">' + sumMarginAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("MarginAmount")).empty());
     $('<label id="DiscountAmountLbl" class="NumberTotal">' + sumDiscountAmount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("DiscountAmount")).empty());
-    $('<label id="PrimaryCostLbl" class="NumberTotal">' + sumPrimaryCost.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("TotalCost")).empty());
+    $('<label id="PrimaryCostLbl" class="NumberTotal">' + sumPrimaryCost.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("PrimaryCost")).empty());
     $('<label id="TotalDiscountLbl" class="NumberTotal">' + sumTotalDiscount.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("TotalDiscount")).empty());
     $('<label id="NetTotalLbl" class="NumberTotal">' + sumNetTotal.toFixed(2) + '</label>').appendTo($(lineItemGrid.getHeaderRowColumn("NetTotal")).empty());
 
@@ -554,7 +554,6 @@ function GetCurrency() {
             _itemArray.value = responce[i].CurrencyID;
             currencyList.push(_itemArray);
         }
-        
         chargesColumns[ChargesBrowser.Currency].items = currencyList;
     });
 }
@@ -574,11 +573,12 @@ function GetVendor() {
 }
 
 function SavePurchase() {
+    
     var purchaseData = {};
     purchaseData.PurchaseID =$('#PurchaseID').val() ;
     purchaseData.PurchaseNumber = $('#PurchaseNumber').val();
-    purchaseData.PurchaseDate = $('#PurchaseDate').val();
-    purchaseData.DueDate = $('#DueDate').val();
+    purchaseData.PurchaseDate = $.datepicker.parseDate(applicationDateFormat, $('#PurchaseDate').val()).toLocaleDateString();
+    purchaseData.DueDate = $.datepicker.parseDate(applicationDateFormat, $('#DueDate').val()).toLocaleDateString();
     purchaseData.BranchID = $('#BranchID').val();
     purchaseData.VendorID = $('#VendorID').val();
     purchaseData.PaymentTermID = $('#PaymentTermID').val();
@@ -592,9 +592,11 @@ function SavePurchase() {
     purchaseData.DiscountPercentage = $('#DiscountPercentage').val();
     purchaseData.DiscountAmount = $('#DiscountAmount').val();
     purchaseData.GrandTotal = $('#GrandTotal').val();
-
     purchaseData.Remarks = $('#Remarks').val();
-    
+
+    debugger;
+    delete itemJson.ItemName;
+    delete itemJson["ItemName"];
     purchaseData.TransactionItemJson = itemJson;
     purchaseData.TransactionLedgerJson = ledgerJson;
     purchaseData.TransactionChargeJson = chargeJson;
@@ -604,9 +606,4 @@ function SavePurchase() {
         alert(data);
         alert(textStatus);
     });
-
-    //$.post(host + "/PurchaseManagement/Purchase/Save", JSON.stringify(purchaseData)).done(function (responce, status) {
-    //    alert(responce);
-    //    alert(status);
-    //});
 }

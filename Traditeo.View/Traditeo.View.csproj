@@ -145,6 +145,7 @@
     <Compile Include="Areas\PurchaseManagement\Controllers\PurchaseController.cs" />
     <Compile Include="Areas\PurchaseManagement\PurchaseManagementAreaRegistration.cs" />
     <Compile Include="Areas\SalesManagement\SalesManagementAreaRegistration.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SecurityController.cs" />
     <Compile Include="Global.asax.cs">
